@@ -6,11 +6,12 @@ import { Eye, EyeOff } from 'lucide-react';
 interface LoginFormProps {
   onSubmit: (credentials: { employeeId: string; pinCode: string }) => void;
   isLoading?: boolean;
+  error?: string;
   onAutoFill?: () => void;
   setFormData?: (setters: { setEmployeeId: (value: string) => void; setPinCode: (value: string) => void }) => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false, onAutoFill, setFormData }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false, error, onAutoFill, setFormData }) => {
   const [employeeId, setEmployeeId] = useState<string>('');
   const [pinCode, setPinCode] = useState<string>('');
   const [showPin, setShowPin] = useState(false);
@@ -84,6 +85,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = fals
           </button>
         </div>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div className="text-red-600 text-sm text-center bg-red-50 border border-red-200 rounded-lg p-3">
+          {error}
+        </div>
+      )}
 
              <Button
          type="submit"
