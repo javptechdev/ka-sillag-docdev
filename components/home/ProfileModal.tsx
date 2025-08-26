@@ -2,20 +2,11 @@
 
 import { X, LogOut, User, Mail, Shield } from 'lucide-react'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
-
-interface User {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  avatar?: string
-  role: string
-  permissions: string[]
-}
+import { User as UserType } from '@/types'
 
 interface ProfileModalProps {
   isOpen: boolean
-  user: User
+  user: UserType
   onClose: () => void
 }
 
@@ -57,7 +48,7 @@ export function ProfileModal({ isOpen, user, onClose }: ProfileModalProps) {
             {user.avatar ? (
               <img
                 src={user.avatar}
-                alt={`${user.firstName} ${user.lastName}`}
+                alt={user.name}
                 className="w-full h-full rounded-full object-cover"
               />
             ) : (
@@ -69,12 +60,15 @@ export function ProfileModal({ isOpen, user, onClose }: ProfileModalProps) {
 
           {/* Name */}
           <h3 className="text-xl font-semibold text-gray-900 mb-1">
-            {user.firstName} {user.lastName}
+            {user.name}
           </h3>
 
-          {/* Role */}
-          <p className="text-gray-600 mb-2">
-            {user.role}
+          {/* Position and Department */}
+          <p className="text-gray-600 mb-1">
+            {user.position}
+          </p>
+          <p className="text-gray-500 text-sm mb-2">
+            {user.department}
           </p>
 
           {/* Email */}
@@ -95,24 +89,17 @@ export function ProfileModal({ isOpen, user, onClose }: ProfileModalProps) {
             <span>View Full Profile</span>
           </button>
 
-          {/* Permissions Info */}
+          {/* Employee Info */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
             <div className="flex items-center space-x-2 mb-2">
               <Shield size={16} className="text-blue-600" />
-              <span className="text-sm font-medium text-blue-800">Access Permissions</span>
+              <span className="text-sm font-medium text-blue-800">Employee Information</span>
             </div>
-            <div className="text-xs text-blue-700">
-              {user.permissions.length > 0 ? (
-                <ul className="list-disc list-inside space-y-1">
-                  {user.permissions.map((permission, index) => (
-                    <li key={index} className="capitalize">
-                      {permission.replace(/_/g, ' ')}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No specific permissions assigned</p>
-              )}
+            <div className="text-xs text-blue-700 space-y-1">
+              <p><strong>Employee ID:</strong> {user.employeeId}</p>
+              <p><strong>Phone:</strong> {user.phone}</p>
+              <p><strong>Status:</strong> {user.isActive ? 'Active' : 'Inactive'}</p>
+              <p><strong>Last Login:</strong> {user.lastLogin.toLocaleDateString()}</p>
             </div>
           </div>
 

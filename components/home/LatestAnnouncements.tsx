@@ -1,19 +1,7 @@
 'use client'
 
 import { ArrowRight, MessageCircle, Heart, Clock, User } from 'lucide-react'
-
-interface Announcement {
-  id: string
-  title: string
-  content: string
-  addedBy: string
-  addedTimestamp: Date
-  editedBy?: string
-  editedTimestamp?: Date
-  commentCount: number
-  loveCount: number
-  isLovedByUser?: boolean
-}
+import { Announcement } from '@/types'
 
 interface LatestAnnouncementsProps {
   announcements: Announcement[]
@@ -74,7 +62,7 @@ export function LatestAnnouncements({ announcements, onAnnouncementClick, onSeeA
               <div className="flex items-center space-x-4 text-sm text-gray-500">
                 <div className="flex items-center space-x-1">
                   <User size={14} />
-                  <span>Added by {announcement.addedBy}</span>
+                  <span>Added by {announcement.addedBy} from {announcement.addedByDepartment}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Clock size={14} />
@@ -83,7 +71,7 @@ export function LatestAnnouncements({ announcements, onAnnouncementClick, onSeeA
                 {announcement.editedBy && (
                   <div className="flex items-center space-x-1">
                     <Clock size={14} />
-                    <span>Edited by {announcement.editedBy}</span>
+                                         <span>Edited by {announcement.editedBy} from {announcement.editedByDepartment}</span>
                   </div>
                 )}
               </div>

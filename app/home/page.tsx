@@ -14,18 +14,9 @@ import { DivisionModal } from '@/components/home/DivisionModal'
 import { AnnouncementModal } from '@/components/home/AnnouncementModal'
 import { ProfileModal } from '@/components/home/ProfileModal'
 import { NotificationsModal } from '@/components/home/NotificationsModal'
+import { User, Department as DepartmentType, Announcement } from '@/types'
 
 // Types based on our concept plans
-interface User {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  avatar?: string
-  role: string
-  permissions: string[]
-}
-
 interface Service {
   id: string
   name: string
@@ -39,10 +30,10 @@ interface Division {
   name: string
   logo: string
   description?: string
-  departments: Department[]
+  departments: DepartmentLocal[]
 }
 
-interface Department {
+interface DepartmentLocal {
   id: string
   name: string
   logo: string
@@ -58,18 +49,7 @@ interface UnitService {
   description?: string
 }
 
-interface Announcement {
-  id: string
-  title: string
-  content: string
-  addedBy: string
-  addedTimestamp: Date
-  editedBy?: string
-  editedTimestamp?: Date
-  commentCount: number
-  loveCount: number
-  isLovedByUser?: boolean
-}
+
 
 export default function HomePage() {
   // State management for modals and data
@@ -85,12 +65,15 @@ export default function HomePage() {
   // Mock user data (in real app, this comes from authentication)
   const [currentUser] = useState<User>({
     id: '1',
-    firstName: 'Maria',
-    lastName: 'Santos',
-    email: 'maria.santos@itrmc.gov.ph',
+    employeeId: '2024001',
+    name: 'Dr. Maria Santos Cruz',
+    department: 'Internal Medicine',
+    position: 'Senior Physician',
+    email: 'maria.cruz@itrmc.gov.ph',
+    phone: '+63 912 345 6789',
     avatar: undefined,
-    role: 'Nurse',
-    permissions: ['patient_records', 'appointments', 'nursing_services']
+    isActive: true,
+    lastLogin: new Date('2024-01-15T08:30:00Z')
   })
 
   // Mock data based on our concept plans
@@ -301,7 +284,8 @@ export default function HomePage() {
       id: '1',
       title: 'New Hospital Policy Update',
       content: 'Important changes to patient care procedures have been implemented. All healthcare workers are required to review the updated protocols by the end of this week. The new procedures focus on improving patient safety and care quality.',
-      addedBy: 'Admin',
+      addedBy: 'Dr. Maria Santos Cruz',
+      addedByDepartment: 'Internal Medicine',
       addedTimestamp: new Date('2024-01-15T09:00:00'),
       commentCount: 5,
       loveCount: 12,
@@ -311,7 +295,8 @@ export default function HomePage() {
       id: '2',
       title: 'Staff Training Schedule',
       content: 'Mandatory training sessions for all nursing staff will be conducted next week. Please check your email for your assigned schedule. Attendance is required for all shifts.',
-      addedBy: 'HR Department',
+      addedBy: 'Nurse Juan Dela Cruz',
+      addedByDepartment: 'Emergency Room',
       addedTimestamp: new Date('2024-01-14T14:30:00'),
       commentCount: 8,
       loveCount: 15,
@@ -321,7 +306,8 @@ export default function HomePage() {
       id: '3',
       title: 'Equipment Maintenance Notice',
       content: 'Scheduled maintenance for radiology equipment will take place this weekend. Some services may be temporarily unavailable. We apologize for any inconvenience.',
-      addedBy: 'Maintenance Team',
+      addedBy: 'Engr. Roberto Santos',
+      addedByDepartment: 'Maintenance Department',
       addedTimestamp: new Date('2024-01-13T16:00:00'),
       commentCount: 3,
       loveCount: 7,
@@ -331,7 +317,8 @@ export default function HomePage() {
       id: '4',
       title: 'Holiday Schedule Update',
       content: 'Updated holiday schedule for the upcoming month has been posted. Please review your assigned shifts and contact your supervisor if you have any conflicts.',
-      addedBy: 'Scheduling Department',
+      addedBy: 'Admin Ana Reyes',
+      addedByDepartment: 'Administration',
       addedTimestamp: new Date('2024-01-12T11:00:00'),
       commentCount: 12,
       loveCount: 25,
@@ -341,7 +328,8 @@ export default function HomePage() {
       id: '5',
       title: 'Quality Improvement Initiative',
       content: 'New quality improvement program launching next month. All departments will participate in this initiative to enhance patient care standards and operational efficiency.',
-      addedBy: 'Quality Assurance',
+      addedBy: 'Dr. Luzviminda Garcia',
+      addedByDepartment: 'Quality Assurance',
       addedTimestamp: new Date('2024-01-11T10:00:00'),
       commentCount: 6,
       loveCount: 18,
@@ -410,14 +398,14 @@ export default function HomePage() {
         onNotificationClick={handleNotificationClick}
         onProfileClick={handleProfileClick}
         notificationCount={3}
-        userName={currentUser.firstName}
+        userName={currentUser.name}
         userAvatar={currentUser.avatar}
       />
 
       {/* Main Content */}
       <main className="px-4 py-6 space-y-8">
         {/* Greetings Component */}
-        <Greetings firstName={currentUser.firstName} />
+        <Greetings name={currentUser.name} />
 
         {/* Feature Services Component */}
         <FeatureServices 

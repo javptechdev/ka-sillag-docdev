@@ -1,11 +1,14 @@
 'use client'
 
 interface GreetingsProps {
-  firstName: string
+  name: string
   className?: string
 }
 
-export function Greetings({ firstName, className = '' }: GreetingsProps) {
+export function Greetings({ name, className = '' }: GreetingsProps) {
+  // Extract first name from full name
+  const firstName = name.split(' ')[0]
+  
   return (
     <div className={`text-center ${className}`}>
       {/* First Line - Personalized Welcome */}

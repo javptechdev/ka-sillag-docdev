@@ -58,6 +58,21 @@ export interface LoginCredentials {
   pinCode: string;
 }
 
+export interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  addedBy: string;
+  addedByDepartment: string;
+  addedTimestamp: Date;
+  editedBy?: string;
+  editedByDepartment?: string;
+  editedTimestamp?: Date;
+  commentCount: number;
+  loveCount: number;
+  isLovedByUser?: boolean;
+}
+
 export interface LoginResponse {
   success: boolean;
   user?: User;
