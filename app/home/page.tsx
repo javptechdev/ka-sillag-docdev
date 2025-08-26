@@ -76,6 +76,8 @@ export default function HomePage() {
     lastLogin: new Date('2024-01-15T08:30:00Z')
   })
 
+
+
   // Mock data based on our concept plans
   const [featureServices] = useState<Service[]>([
     {
@@ -353,8 +355,8 @@ export default function HomePage() {
   }
 
   const handleSeeAllServices = () => {
-    // In real app, navigate to Services Module
-    alert('Navigating to Services Module...')
+    // Navigate to Services Module
+    window.location.href = '/services'
   }
 
   const handleDivisionClick = (divisionId: string) => {
@@ -379,8 +381,15 @@ export default function HomePage() {
   }
 
   const handleNavigationClick = (moduleName: string) => {
-    // In real app, navigate to different modules
-    alert(`Navigating to ${moduleName} module...`)
+    if (moduleName === 'services') {
+      window.location.href = '/services'
+    } else if (moduleName === 'qr') {
+      alert('Navigating to My QR module...')
+    } else if (moduleName === 'latest') {
+      alert('Navigating to Latest module...')
+    } else if (moduleName === 'others') {
+      alert('Navigating to Others module...')
+    }
   }
 
   const handleNotificationClick = () => {
@@ -403,7 +412,7 @@ export default function HomePage() {
       />
 
       {/* Main Content */}
-      <main className="px-4 py-6 space-y-8">
+      <main className="px-4 py-6 pb-24 space-y-8">
         {/* Greetings Component */}
         <Greetings name={currentUser.name} />
 

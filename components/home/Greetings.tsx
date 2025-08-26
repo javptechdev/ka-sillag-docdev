@@ -6,8 +6,17 @@ interface GreetingsProps {
 }
 
 export function Greetings({ name, className = '' }: GreetingsProps) {
-  // Extract first name from full name
-  const firstName = name.split(' ')[0]
+  // Extract first name from full name, handling titles like Dr., Prof., etc.
+  const nameParts = name.split(' ')
+  let firstName = nameParts[0]
+  
+  // If first part is a title, get the second part
+  const titles = ['Dr.', 'Prof.', 'Mr.', 'Mrs.', 'Ms.', 'Sir', 'Madam']
+  if (titles.includes(firstName)) {
+    firstName = nameParts[1] || firstName
+  }
+  
+
   
   return (
     <div className={`text-center ${className}`}>
