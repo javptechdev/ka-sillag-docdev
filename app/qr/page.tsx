@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Filter, Clock, User, Building2, Calendar, FileText } from 'lucide-react'
+import { Filter, Clock, User, Building2, Calendar, FileText, Search } from 'lucide-react'
 import { Header } from '@/components/home/Header'
 import { HorizontalNavigationBar } from '@/components/home/HorizontalNavigationBar'
 import { User as UserType } from '@/types'
@@ -124,6 +124,16 @@ export default function QRPage() {
   
   // State for QR code
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>('')
+
+  // State for scan modal
+  const [showScanModal, setShowScanModal] = useState(false)
+  const [scanResult, setScanResult] = useState<string>('')
+  const [isScanning, setIsScanning] = useState(false)
+  const [scanSuccess, setScanSuccess] = useState(false)
+  const [showOTPInput, setShowOTPInput] = useState(false)
+  const [scannedEventData, setScannedEventData] = useState<any>(null)
+  const [otpInput, setOtpInput] = useState<string>('')
+  const [otpError, setOtpError] = useState<string>('')
 
   // Generate QR code when component mounts
   useEffect(() => {
@@ -315,6 +325,100 @@ export default function QRPage() {
     setDateTo('')
   }
 
+  // Scan QR functionality
+  const handleScanQR = () => {
+    setShowScanModal(true)
+    setScanResult('')
+    setIsScanning(false)
+    setScanSuccess(false)
+  }
+
+  const handleScanSuccess = (scannedData: string) => {
+    try {
+      // Parse the scanned QR data (assuming it's JSON)
+      const parsedData = JSON.parse(scannedData)
+      
+      // Check if it's a valid event QR code
+      if (parsedData.eventId && parsedData.eventName && parsedData.otp) {
+        // Store the scanned data and show OTP input
+        setScannedEventData(parsedData)
+        setShowOTPInput(true)
+        setOtpInput('')
+        setOtpError('')
+      } else {
+        setScanResult('Invalid QR code format. Please scan a valid event QR code.')
+      }
+    } catch (error) {
+      setScanResult('Error reading QR code. Please try again.')
+    }
+  }
+
+  const validateOTP = (otp: string): boolean => {
+    // In real app, this would validate with backend
+    // For demo, accept any 6-digit OTP
+    return /^\d{6}$/.test(otp)
+  }
+
+  const handleOTPSubmit = () => {
+    if (!scannedEventData) return
+    
+    // Validate OTP input
+    if (!otpInput.trim()) {
+      setOtpError('Please enter the OTP')
+      return
+    }
+    
+    if (otpInput.trim() === scannedEventData.otp) {
+      // OTP is valid - mark attendance
+      setScanSuccess(true)
+      setScanResult(`Successfully marked attendance for ${scannedEventData.eventName}`)
+      setShowOTPInput(false)
+      
+      // Close modal after 2 seconds
+      setTimeout(() => {
+        setShowScanModal(false)
+        setScanSuccess(false)
+        setScanResult('')
+        setScannedEventData(null)
+        setOtpInput('')
+        setOtpError('')
+      }, 2000)
+    } else {
+      setOtpError('Invalid OTP. Please check and try again.')
+    }
+  }
+
+  const resetScanProcess = () => {
+    setShowScanModal(false)
+    setScanResult('')
+    setIsScanning(false)
+    setScanSuccess(false)
+    setShowOTPInput(false)
+    setScannedEventData(null)
+    setOtpInput('')
+    setOtpError('')
+  }
+
+  const simulateQRScan = () => {
+    setIsScanning(true)
+    
+    // Simulate scanning process
+    setTimeout(() => {
+      setIsScanning(false)
+      
+      // Simulate successful scan with demo data
+      const demoEventData = {
+        eventId: 'EVT-2024-001',
+        eventName: 'Monthly Department Meeting',
+        location: 'Conference Room A, 3rd Floor',
+        otp: '789456',
+        timestamp: new Date().toISOString()
+      }
+      
+      handleScanSuccess(JSON.stringify(demoEventData))
+    }, 2000)
+  }
+
   // Helper function to convert MM/DD/YYYY to Date object
   const parseDate = (dateString: string): Date | null => {
     const parts = dateString.split('/')
@@ -355,42 +459,60 @@ export default function QRPage() {
 
       {/* Main Content */}
       <main className="px-4 py-6 pb-24 space-y-6">
-        {/* QR Code Section */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">My QR</h2>
-          <p className="text-gray-600 mb-6 leading-relaxed">
-            Show this QR code to any hospital staff for transactions that require verification, 
-            such as meeting attendance, medicine availment, laboratory services, consultations, 
-            or any other hospital services.
-          </p>
-          
-          {/* QR Code Display */}
-          <div className="bg-gray-100 rounded-xl p-8 mx-auto w-64 h-64 flex items-center justify-center mb-4">
-            {qrCodeDataUrl ? (
-              <div className="text-center">
-                <img 
-                  src={qrCodeDataUrl} 
-                  alt="QR Code" 
-                  className="w-48 h-48 mx-auto mb-3"
-                />
-                <p className="text-sm text-gray-500">Scan to verify</p>
-              </div>
-            ) : (
-              <div className="text-center">
-                <div className="w-32 h-32 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center border-2 border-gray-300">
-                  <span className="text-xs text-gray-500">Generating QR...</span>
-                </div>
-                <p className="text-sm text-gray-500">Please wait</p>
-              </div>
-            )}
-          </div>
-          
-          {/* Employee ID */}
-          <div className="bg-gray-50 rounded-lg p-3 inline-block">
-            <span className="text-sm text-gray-600">Employee ID: </span>
-            <span className="text-sm font-semibold text-gray-900">{currentUser.employeeId}</span>
-          </div>
-        </div>
+                 {/* QR Code Section */}
+         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
+           <h2 className="text-2xl font-bold text-gray-900 mb-2">My QR</h2>
+           <p className="text-gray-600 mb-6 leading-relaxed">
+             Show this QR code to any hospital staff for transactions that require verification, 
+             such as meeting attendance, medicine availment, laboratory services, consultations, 
+             or any other hospital services.
+           </p>
+           
+           {/* QR Code Display */}
+           <div className="bg-gray-100 rounded-xl p-8 mx-auto w-64 h-64 flex items-center justify-center mb-4">
+             {qrCodeDataUrl ? (
+               <div className="text-center">
+                 <img 
+                   src={qrCodeDataUrl} 
+                   alt="QR Code" 
+                   className="w-48 h-48 mx-auto mb-3"
+                 />
+                 <p className="text-sm text-gray-500">Scan to verify</p>
+               </div>
+             ) : (
+               <div className="text-center">
+                 <div className="w-32 h-32 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center border-2 border-gray-300">
+                   <span className="text-xs text-gray-500">Generating QR...</span>
+                 </div>
+                 <p className="text-sm text-gray-500">Please wait</p>
+               </div>
+             )}
+           </div>
+           
+           {/* Employee ID */}
+           <div className="bg-gray-50 rounded-lg p-3 inline-block mb-6">
+             <span className="text-sm text-gray-600">Employee ID: </span>
+             <span className="text-sm font-semibold text-gray-900">{currentUser.employeeId}</span>
+           </div>
+
+           {/* Scan QR Button */}
+           <div className="space-y-4">
+             <div className="w-full h-px bg-gray-200"></div>
+             <div>
+               <h3 className="text-lg font-semibold text-gray-900 mb-2">Scan QR for Attendance</h3>
+               <p className="text-gray-600 text-sm mb-4">
+                 Scan QR codes from meetings, lectures, or events to mark your attendance
+               </p>
+               <button
+                 onClick={handleScanQR}
+                 className="w-full bg-primary text-white py-3 px-6 rounded-xl hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center space-x-2"
+               >
+                 <Search className="w-5 h-5" />
+                 <span>Scan QR Code</span>
+               </button>
+             </div>
+           </div>
+         </div>
 
         {/* Transaction History Section */}
         <div className="space-y-4">
@@ -635,11 +757,159 @@ export default function QRPage() {
         </div>
       </main>
 
-      {/* Horizontal Navigation Bar - QR highlighted */}
-      <HorizontalNavigationBar 
-        currentModule="qr"
-        onNavigationClick={handleNavigationClick}
-      />
-    </div>
-  )
-}
+             {/* Horizontal Navigation Bar - QR highlighted */}
+       <HorizontalNavigationBar 
+         currentModule="qr"
+         onNavigationClick={handleNavigationClick}
+       />
+
+       {/* Scan QR Modal */}
+       {showScanModal && (
+         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+           <div className="bg-white rounded-xl p-6 w-full max-w-md">
+             <div className="text-center">
+               <h3 className="text-xl font-bold text-gray-900 mb-4">Scan QR Code</h3>
+               
+                               {!isScanning && !scanResult && !showOTPInput && (
+                  <div className="space-y-4">
+                    <div className="bg-gray-100 rounded-xl p-8 flex items-center justify-center">
+                      <Search className="w-16 h-16 text-gray-400" />
+                    </div>
+                    <p className="text-gray-600">
+                      Point your camera at the QR code to scan
+                    </p>
+                    <div className="space-y-3">
+                      <button
+                        onClick={simulateQRScan}
+                        className="w-full bg-primary text-white py-3 px-6 rounded-xl hover:bg-primary/90 transition-colors duration-200"
+                      >
+                        Simulate QR Scan (Demo)
+                      </button>
+                      <button
+                        onClick={resetScanProcess}
+                        className="w-full bg-gray-200 text-gray-700 py-3 px-6 rounded-xl hover:bg-gray-300 transition-colors duration-200"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                                 {showOTPInput && (
+                   <div className="space-y-4">
+                     <div className="bg-blue-100 rounded-xl p-6 text-center">
+                       <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                         <span className="text-2xl text-blue-600">✓</span>
+                       </div>
+                       <h4 className="font-semibold text-blue-900 mb-1">QR Code Valid!</h4>
+                       <p className="text-sm text-blue-700">
+                         {scannedEventData?.eventName}
+                       </p>
+                       <p className="text-xs text-blue-600 mt-1">
+                         {scannedEventData?.location}
+                       </p>
+                     </div>
+                     
+                     {/* Demo OTP Hint */}
+                     <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-center">
+                       <p className="text-xs text-yellow-700 mb-1">💡 Demo Mode</p>
+                       <p className="text-sm font-mono font-semibold text-yellow-800">
+                         Enter OTP: <span className="text-lg">{scannedEventData?.otp}</span>
+                       </p>
+                     </div>
+                    
+                    <div className="space-y-3">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2 text-left">
+                          Enter OTP from QR Code
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="Enter 6-digit OTP"
+                          value={otpInput}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            if (/^\d{0,6}$/.test(value)) {
+                              setOtpInput(value)
+                              setOtpError('')
+                            }
+                          }}
+                          className={`w-full px-3 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-center text-lg font-mono ${
+                            otpError ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                          }`}
+                          maxLength={6}
+                          autoFocus
+                        />
+                        {otpError && (
+                          <p className="text-xs text-red-500 mt-1 text-left">{otpError}</p>
+                        )}
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <button
+                          onClick={handleOTPSubmit}
+                          className="w-full bg-primary text-white py-3 px-6 rounded-xl hover:bg-primary/90 transition-colors duration-200"
+                        >
+                          Verify OTP & Mark Attendance
+                        </button>
+                        <button
+                          onClick={resetScanProcess}
+                          className="w-full bg-gray-200 text-gray-700 py-3 px-6 rounded-xl hover:bg-gray-300 transition-colors duration-200"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+               {isScanning && (
+                 <div className="space-y-4">
+                   <div className="bg-gray-100 rounded-xl p-8 flex items-center justify-center">
+                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
+                   </div>
+                   <p className="text-gray-600">Scanning QR code...</p>
+                 </div>
+               )}
+
+               {scanResult && (
+                 <div className="space-y-4">
+                   <div className={`rounded-xl p-8 flex items-center justify-center ${
+                     scanSuccess ? 'bg-green-100' : 'bg-red-100'
+                   }`}>
+                     {scanSuccess ? (
+                       <div className="text-green-600 text-center">
+                         <div className="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                           <span className="text-2xl">✓</span>
+                         </div>
+                         <p className="text-sm">Success!</p>
+                       </div>
+                     ) : (
+                       <div className="text-red-600 text-center">
+                         <div className="w-16 h-16 bg-red-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                           <span className="text-xl">✗</span>
+                         </div>
+                         <p className="text-sm">Error</p>
+                       </div>
+                     )}
+                   </div>
+                   <p className={`text-sm ${scanSuccess ? 'text-green-600' : 'text-red-600'}`}>
+                     {scanResult}
+                   </p>
+                   {!scanSuccess && (
+                     <button
+                       onClick={() => setShowScanModal(false)}
+                       className="w-full bg-gray-200 text-gray-700 py-3 px-6 rounded-xl hover:bg-gray-300 transition-colors duration-200"
+                     >
+                       Close
+                     </button>
+                   )}
+                 </div>
+               )}
+             </div>
+           </div>
+         </div>
+       )}
+     </div>
+   )
+ }
