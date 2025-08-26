@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { KaSillagLogo } from '@/components/ka-sillag-logo';
 import { Greetings } from '@/components/greetings';
 import { LoginForm } from '@/components/login-form';
@@ -15,17 +15,10 @@ export default function LoginPage() {
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
-
-  // For demo purposes, redirect to home module after a short delay
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      // In real app, check authentication status here
-      // For now, redirect to home module to showcase our work
-      window.location.href = '/home';
-    }, 2000); // 2 second delay to show loading state
-
-    return () => clearTimeout(timer);
-  }, []);
+  const [formSetters, setFormSetters] = useState<{
+    setEmployeeId: (value: string) => void;
+    setPinCode: (value: string) => void;
+  } | null>(null);
 
   const handleLogin = async (credentials: { employeeId: string; pinCode: string }) => {
     setIsLoading(true);
@@ -44,6 +37,8 @@ export default function LoginPage() {
     }, 1500);
   };
 
+
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header - Extra Large Logo with Minimal Spacing */}
@@ -51,29 +46,77 @@ export default function LoginPage() {
         <KaSillagLogo size="xl" />
       </header>
 
-      {/* Main Content - Loading State */}
+      {/* Main Content - Login Form */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-0">
-        <div className="text-center space-y-6">
-          {/* Loading Spinner */}
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+        <div className="w-full max-w-md space-y-6">
+          {/* Greetings */}
+          <Greetings />
           
-          {/* Loading Message */}
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-primary">
-              Loading Ka-Sillag Connect...
-            </h2>
-            <p className="text-gray-600">
-              Redirecting to Home Module in a few seconds...
-            </p>
+
+
+          {/* Login Form */}
+          <LoginForm 
+            onSubmit={handleLogin}
+            isLoading={isLoading}
+            error={loginError}
+            setFormData={setFormSetters}
+          />
+
+          {/* Action Buttons */}
+          <div className="space-y-3">
+            <Button
+              onClick={() => setIsForgotModalOpen(true)}
+              variant="outline"
+              className="w-full"
+            >
+              <HelpCircle size={16} className="mr-2" />
+              Forgot Credentials?
+            </Button>
+
+            <Button
+              onClick={() => setIsRequestModalOpen(true)}
+              variant="outline"
+              className="w-full"
+            >
+              <UserPlus size={16} className="mr-2" />
+              Request New Account
+            </Button>
+
+            <Button
+              onClick={() => window.location.href = '/home'}
+              variant="outline"
+              className="w-full"
+            >
+              <Download size={16} className="mr-2" />
+              Install App
+            </Button>
           </div>
         </div>
       </main>
+
       {/* Footer */}
       <footer className="p-6 text-center text-sm text-muted-foreground">
         <p>&copy; 2024 ITRMC Ka-Sillag Connect. All rights reserved.</p>
         <p className="mt-1">Ilocos Training and Regional Medical Center</p>
         <p className="mt-1">Innovated by DHIU. Driven by Compassion.</p>
+        
+                 {/* Auto-fill Link for Testing */}
+         <div className="mt-4 pt-4 border-t border-gray-200">
+           <button
+             onClick={() => {
+               if (formSetters) {
+                 // Use the React state setters to properly update the form
+                 formSetters.setEmployeeId('2024001');
+                 formSetters.setPinCode('123456');
+               }
+             }}
+             className="text-xs text-primary hover:text-primary/80 underline"
+           >
+             Auto-fill for Testing (Employee ID: 2024001 | Pin: 123456)
+           </button>
+         </div>
       </footer>
+
       {/* Modals */}
       <ForgotCredentialsModal
         isOpen={isForgotModalOpen}

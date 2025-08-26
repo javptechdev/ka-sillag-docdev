@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { X, Heart, MessageCircle, Send, Clock, User } from 'lucide-react'
+import { Heart, MessageCircle, Send, Clock, User } from 'lucide-react'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 
 interface Comment {
@@ -37,9 +37,7 @@ export function AnnouncementModal({ isOpen, announcement, onClose }: Announcemen
   const [isLoved, setIsLoved] = useState(announcement?.isLovedByUser || false)
   const [loveCount, setLoveCount] = useState(announcement?.loveCount || 0)
 
-  if (!announcement) return null
-
-  // Mock comments data
+  // Mock comments data - moved before early return
   const [comments] = useState<Comment[]>([
     {
       id: '1',
@@ -58,6 +56,8 @@ export function AnnouncementModal({ isOpen, announcement, onClose }: Announcemen
       isLovedByUser: true
     }
   ])
+
+  if (!announcement) return null
 
   const formatTimestamp = (date: Date) => {
     return date.toLocaleString('en-US', {
@@ -91,13 +91,6 @@ export function AnnouncementModal({ isOpen, announcement, onClose }: Announcemen
           <h2 className="text-xl font-semibold text-gray-900 flex-1">
             {announcement.title}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 text-gray-600 hover:text-gray-800 transition-colors"
-            aria-label="Close"
-          >
-            <X size={20} />
-          </button>
         </div>
 
         {/* Timestamps */}

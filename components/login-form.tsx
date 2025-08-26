@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Eye, EyeOff } from 'lucide-react';
@@ -6,16 +6,18 @@ import { Eye, EyeOff } from 'lucide-react';
 interface LoginFormProps {
   onSubmit: (credentials: { employeeId: string; pinCode: string }) => void;
   isLoading?: boolean;
+  onAutoFill?: () => void;
+  setFormData?: (setters: { setEmployeeId: (value: string) => void; setPinCode: (value: string) => void }) => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) => {
-  const [employeeId, setEmployeeId] = useState('');
-  const [pinCode, setPinCode] = useState('');
+export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false, onAutoFill, setFormData }) => {
+  const [employeeId, setEmployeeId] = useState<string>('');
+  const [pinCode, setPinCode] = useState<string>('');
   const [showPin, setShowPin] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (employeeId.trim() && pinCode.trim()) {
+    if (employeeId?.trim() && pinCode?.trim()) {
       onSubmit({ employeeId: employeeId.trim(), pinCode: pinCode.trim() });
     }
   };
@@ -25,6 +27,18 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = fals
     const digitsOnly = value.replace(/\D/g, '');
     setter(digitsOnly);
   };
+
+  // Expose setFormData function to parent component
+  useEffect(() => {
+    if (setFormData) {
+      setFormData({
+        setEmployeeId,
+        setPinCode
+      });
+    }
+  }, [setFormData]);
+
+
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -43,6 +57,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = fals
           required
         />
       </div>
+
+
 
       <div className="space-y-2">
         <label htmlFor="pinCode" className="text-sm font-medium text-gray-700">
@@ -69,13 +85,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = fals
         </div>
       </div>
 
-      <Button
-        type="submit"
-        className="ka-sillag-button w-full"
-        disabled={isLoading || !employeeId.trim() || !pinCode.trim()}
-      >
-        {isLoading ? 'Mag-login...' : 'Mag-login'}
-      </Button>
+             <Button
+         type="submit"
+         className="ka-sillag-button w-full"
+         disabled={isLoading || !(employeeId?.trim()) || !(pinCode?.trim())}
+       >
+         {isLoading ? 'Mag-login...' : 'Mag-login'}
+       </Button>
     </form>
   );
 };

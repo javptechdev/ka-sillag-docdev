@@ -22,8 +22,10 @@ interface ProfileModalProps {
 export function ProfileModal({ isOpen, user, onClose }: ProfileModalProps) {
   const handleLogout = () => {
     // In real app, handle logout logic
-    alert('Logging out...')
+    alert('Logging out... Redirecting to login page.')
     onClose()
+    // Redirect to login page
+    window.location.href = '/'
   }
 
   const handleViewProfile = () => {
