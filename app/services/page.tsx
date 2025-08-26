@@ -170,7 +170,7 @@ export default function ServicesPage() {
     if (moduleName === 'home') {
       window.location.href = '/home'
     } else if (moduleName === 'qr') {
-      alert('Navigating to My QR module...')
+      window.location.href = '/qr'
     } else if (moduleName === 'latest') {
       alert('Navigating to Latest module...')
     } else if (moduleName === 'others') {

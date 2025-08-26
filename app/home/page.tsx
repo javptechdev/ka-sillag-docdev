@@ -384,7 +384,7 @@ export default function HomePage() {
     if (moduleName === 'services') {
       window.location.href = '/services'
     } else if (moduleName === 'qr') {
-      alert('Navigating to My QR module...')
+      window.location.href = '/qr'
     } else if (moduleName === 'latest') {
       alert('Navigating to Latest module...')
     } else if (moduleName === 'others') {
