@@ -1,0 +1,197 @@
+import { User, Appointment, QueueItem, Department, Notification } from '@/types';
+
+export const dummyUsers: User[] = [
+  {
+    id: '1',
+    employeeId: '2024001',
+    name: 'Dr. Maria Santos Cruz',
+    department: 'Internal Medicine',
+    position: 'Senior Physician',
+    email: 'maria.cruz@itrmc.gov.ph',
+    phone: '+63 912 345 6789',
+    avatar: '/avatars/doctor-1.jpg',
+    isActive: true,
+    lastLogin: new Date('2024-01-15T08:30:00Z'),
+  },
+  {
+    id: '2',
+    employeeId: '2024002',
+    name: 'Nurse Juan Dela Cruz',
+    department: 'Emergency Room',
+    position: 'Head Nurse',
+    email: 'juan.delacruz@itrmc.gov.ph',
+    phone: '+63 923 456 7890',
+    avatar: '/avatars/nurse-1.jpg',
+    isActive: true,
+    lastLogin: new Date('2024-01-15T09:15:00Z'),
+  },
+  {
+    id: '3',
+    employeeId: '2024003',
+    name: 'Admin Ana Reyes',
+    department: 'Administration',
+    position: 'Office Manager',
+    email: 'ana.reyes@itrmc.gov.ph',
+    phone: '+63 934 567 8901',
+    avatar: '/avatars/admin-1.jpg',
+    isActive: true,
+    lastLogin: new Date('2024-01-15T07:45:00Z'),
+  },
+];
+
+export const dummyDepartments: Department[] = [
+  {
+    id: '1',
+    name: 'Internal Medicine',
+    code: 'IM',
+    description: 'General internal medicine and adult primary care',
+    isActive: true,
+  },
+  {
+    id: '2',
+    name: 'Emergency Room',
+    code: 'ER',
+    description: 'Emergency medical services and urgent care',
+    isActive: true,
+  },
+  {
+    id: '3',
+    name: 'Pediatrics',
+    code: 'PED',
+    description: 'Medical care for infants, children, and adolescents',
+    isActive: true,
+  },
+  {
+    id: '4',
+    name: 'Surgery',
+    code: 'SURG',
+    description: 'Surgical procedures and operations',
+    isActive: true,
+  },
+  {
+    id: '5',
+    name: 'Radiology',
+    code: 'RAD',
+    description: 'Medical imaging and diagnostic radiology',
+    isActive: true,
+  },
+];
+
+export const dummyAppointments: Appointment[] = [
+  {
+    id: '1',
+    patientName: 'Roberto Santos',
+    patientId: 'P2024001',
+    doctorName: 'Dr. Maria Santos Cruz',
+    department: 'Internal Medicine',
+    date: new Date('2024-01-20'),
+    time: '09:00 AM',
+    status: 'scheduled',
+    notes: 'Follow-up consultation for diabetes management',
+    createdAt: new Date('2024-01-15T10:00:00Z'),
+  },
+  {
+    id: '2',
+    patientName: 'Luzviminda Garcia',
+    patientId: 'P2024002',
+    doctorName: 'Dr. Maria Santos Cruz',
+    department: 'Internal Medicine',
+    date: new Date('2024-01-20'),
+    time: '10:30 AM',
+    status: 'confirmed',
+    notes: 'Annual physical examination',
+    createdAt: new Date('2024-01-14T14:30:00Z'),
+  },
+  {
+    id: '3',
+    patientName: 'Antonio Martinez',
+    patientId: 'P2024003',
+    doctorName: 'Dr. Carlos Mendoza',
+    department: 'Surgery',
+    date: new Date('2024-01-22'),
+    time: '02:00 PM',
+    status: 'scheduled',
+    notes: 'Pre-operative consultation for appendectomy',
+    createdAt: new Date('2024-01-13T16:00:00Z'),
+  },
+];
+
+export const dummyQueueItems: QueueItem[] = [
+  {
+    id: '1',
+    patientName: 'Elena Rodriguez',
+    patientId: 'P2024004',
+    department: 'Emergency Room',
+    queueNumber: 15,
+    status: 'waiting',
+    estimatedWaitTime: 45,
+    createdAt: new Date('2024-01-15T08:00:00Z'),
+  },
+  {
+    id: '2',
+    patientName: 'Manuel Lopez',
+    patientId: 'P2024005',
+    department: 'Internal Medicine',
+    queueNumber: 8,
+    status: 'in-progress',
+    estimatedWaitTime: 15,
+    createdAt: new Date('2024-01-15T07:30:00Z'),
+  },
+  {
+    id: '3',
+    patientName: 'Carmen Fernandez',
+    patientId: 'P2024006',
+    department: 'Pediatrics',
+    queueNumber: 12,
+    status: 'waiting',
+    estimatedWaitTime: 30,
+    createdAt: new Date('2024-01-15T08:15:00Z'),
+  },
+  {
+    id: '4',
+    patientName: 'Jose Reyes',
+    patientId: 'P2024007',
+    department: 'Radiology',
+    queueNumber: 5,
+    status: 'completed',
+    estimatedWaitTime: 0,
+    createdAt: new Date('2024-01-15T06:45:00Z'),
+  },
+];
+
+export const dummyNotifications: Notification[] = [
+  {
+    id: '1',
+    userId: '1',
+    title: 'New Appointment',
+    message: 'You have a new appointment scheduled for tomorrow at 2:00 PM',
+    type: 'info',
+    isRead: false,
+    createdAt: new Date('2024-01-15T10:30:00Z'),
+  },
+  {
+    id: '2',
+    userId: '1',
+    title: 'Queue Update',
+    message: 'Patient #15 is ready for consultation in Emergency Room',
+    type: 'success',
+    isRead: false,
+    createdAt: new Date('2024-01-15T09:45:00Z'),
+  },
+  {
+    id: '3',
+    userId: '2',
+    title: 'System Maintenance',
+    message: 'Scheduled maintenance tonight from 11:00 PM to 2:00 AM',
+    type: 'warning',
+    isRead: true,
+    createdAt: new Date('2024-01-14T16:00:00Z'),
+  },
+];
+
+export const getGreeting = (): string => {
+  const hour = new Date().getHours();
+  if (hour >= 4 && hour < 12) return 'Magandang Umaga Ka-Sillag!';
+  if (hour >= 12 && hour < 18) return 'Magandang Hapon Ka-Sillag!';
+  return 'Magandang Gabi Ka-Sillag!';
+};
