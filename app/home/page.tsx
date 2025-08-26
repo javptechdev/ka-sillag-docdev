@@ -106,14 +106,14 @@ export default function HomePage() {
       id: '2',
       name: 'aISO',
       logo: '/icons/placeholder.svg',
-      status: 'active',
+      status: 'denied',
       description: 'AI Powered Document Management System (DMS) with Chatbot (RAG)'
     },
     {
       id: '3',
       name: 'AiBTC',
       logo: '/icons/placeholder.svg',
-      status: 'active',
+      status: 'soon',
       description: 'Intelligent Animal Bite Appointment System (RAG)'
     },
     {
@@ -127,14 +127,14 @@ export default function HomePage() {
       id: '5',
       name: 'IntelliPath',
       logo: '/icons/placeholder.svg',
-      status: 'active',
+      status: 'denied',
       description: 'Intelligent Clinical Pathway Recommender System (RAG)'
     },
     {
       id: '6',
       name: 'IntelliMent',
       logo: '/icons/placeholder.svg',
-      status: 'active',
+      status: 'soon',
       description: 'Realtime Intelligent Client Satisfaction Monitoring System (Sentiment Analysis LLM)'
     }
   ])
