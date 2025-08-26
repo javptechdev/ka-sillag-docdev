@@ -204,6 +204,12 @@ export default function ServicesPage() {
     }
   }
 
+  const clearAllFilters = () => {
+    setSearchQuery('')
+    setStatusFilter('all')
+    setDivisionFilter('all')
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Component - Same as Home Module */}
@@ -233,10 +239,14 @@ export default function ServicesPage() {
             </div>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2"
+              className="px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2 relative"
             >
               <Filter className="w-5 h-5 text-gray-600" />
               <span className="text-gray-700">Filter</span>
+              {/* Active filters indicator */}
+              {(searchQuery || statusFilter !== 'all' || divisionFilter !== 'all') && (
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"></span>
+              )}
             </button>
           </div>
 
@@ -274,6 +284,16 @@ export default function ServicesPage() {
                     ))}
                   </select>
                 </div>
+              </div>
+
+              {/* Clear Filters Button */}
+              <div className="flex justify-end pt-2">
+                <button
+                  onClick={clearAllFilters}
+                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  Clear All Filters
+                </button>
               </div>
             </div>
           )}

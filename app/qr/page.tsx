@@ -118,6 +118,8 @@ export default function QRPage() {
   // State for filtering
   const [typeFilter, setTypeFilter] = useState<string>('all')
   const [statusFilter, setStatusFilter] = useState<string>('all')
+  const [dateFrom, setDateFrom] = useState<string>('')
+  const [dateTo, setDateTo] = useState<string>('')
   const [showFilters, setShowFilters] = useState(false)
   
   // State for QR code
@@ -161,7 +163,39 @@ export default function QRPage() {
     .filter(transaction => {
       const matchesType = typeFilter === 'all' || transaction.type === typeFilter
       const matchesStatus = statusFilter === 'all' || transaction.status === statusFilter
-      return matchesType && matchesStatus
+      
+             // Date filtering
+       let matchesDate = true
+       if (dateFrom) {
+         // Convert MM/DD/YYYY to YYYY-MM-DD for comparison
+         const parts = dateFrom.split('/')
+         if (parts.length === 3) {
+           const month = parts[0].padStart(2, '0')
+           const day = parts[1].padStart(2, '0')
+           const year = parts[2]
+           const fromDate = new Date(`${year}-${month}-${day}`)
+           fromDate.setHours(0, 0, 0, 0)
+           if (transaction.timestamp < fromDate) {
+             matchesDate = false
+           }
+         }
+       }
+       if (dateTo) {
+         // Convert MM/DD/YYYY to YYYY-MM-DD for comparison
+         const parts = dateTo.split('/')
+         if (parts.length === 3) {
+           const month = parts[0].padStart(2, '0')
+           const day = parts[1].padStart(2, '0')
+           const year = parts[2]
+           const toDate = new Date(`${year}-${month}-${day}`)
+           toDate.setHours(23, 59, 59, 999)
+           if (transaction.timestamp > toDate) {
+             matchesDate = false
+           }
+         }
+       }
+      
+      return matchesType && matchesStatus && matchesDate
     })
     .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()) // Most recent first
 
@@ -274,6 +308,40 @@ export default function QRPage() {
     })
   }
 
+  const clearAllFilters = () => {
+    setTypeFilter('all')
+    setStatusFilter('all')
+    setDateFrom('')
+    setDateTo('')
+  }
+
+  // Helper function to convert MM/DD/YYYY to Date object
+  const parseDate = (dateString: string): Date | null => {
+    const parts = dateString.split('/')
+    if (parts.length === 3) {
+      const month = parseInt(parts[0]) - 1 // Month is 0-indexed in Date constructor
+      const day = parseInt(parts[1])
+      const year = parseInt(parts[2])
+      const date = new Date(year, month, day)
+      if (!isNaN(date.getTime()) && date.getFullYear() === year && date.getMonth() === month && date.getDate() === day) {
+        return date
+      }
+    }
+    return null
+  }
+
+  // Helper function to validate MM/DD/YYYY format
+  const isValidDateFormat = (dateString: string): boolean => {
+    if (!dateString) return true
+    const date = parseDate(dateString)
+    if (!date) return false
+    
+    // Check if date is not in the future
+    const today = new Date()
+    today.setHours(23, 59, 59, 999)
+    return date <= today
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Component - Same as Home and Services Modules */}
@@ -329,53 +397,181 @@ export default function QRPage() {
           {/* Header and Filter */}
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold text-gray-900">My QR Transaction History</h3>
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2"
-            >
-              <Filter className="w-4 h-4 text-gray-600" />
-              <span className="text-sm text-gray-700">Filter</span>
-            </button>
+                         <button
+               onClick={() => setShowFilters(!showFilters)}
+               className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2 relative"
+             >
+               <Filter className="w-4 h-4 text-gray-600" />
+               <span className="text-sm text-gray-700">Filter</span>
+               {/* Active filters indicator */}
+               {(typeFilter !== 'all' || statusFilter !== 'all' || dateFrom || dateTo) && (
+                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"></span>
+               )}
+             </button>
           </div>
 
-          {/* Filter Options */}
-          {showFilters && (
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Type Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Transaction Type</label>
-                  <select
-                    value={typeFilter}
-                    onChange={(e) => setTypeFilter(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  >
-                    {transactionTypes.map(type => (
-                      <option key={type} value={type}>
-                        {type === 'all' ? 'All Types' : getTypeText(type)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                     {/* Filter Options */}
+           {showFilters && (
+             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 space-y-4">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 {/* Type Filter */}
+                 <div>
+                   <label className="block text-sm font-medium text-gray-700 mb-2">Transaction Type</label>
+                   <select
+                     value={typeFilter}
+                     onChange={(e) => setTypeFilter(e.target.value)}
+                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                   >
+                     {transactionTypes.map(type => (
+                       <option key={type} value={type}>
+                         {type === 'all' ? 'All Types' : getTypeText(type)}
+                       </option>
+                     ))}
+                   </select>
+                 </div>
 
-                {/* Status Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                  <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  >
-                    {transactionStatuses.map(status => (
-                      <option key={status} value={status}>
-                        {status === 'all' ? 'All Status' : getStatusText(status)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-          )}
+                 {/* Status Filter */}
+                 <div>
+                   <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                   <select
+                     value={statusFilter}
+                     onChange={(e) => setStatusFilter(e.target.value)}
+                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                   >
+                     {transactionStatuses.map(status => (
+                       <option key={status} value={status}>
+                         {status === 'all' ? 'All Status' : getStatusText(status)}
+                       </option>
+                     ))}
+                   </select>
+                 </div>
+               </div>
+
+               {/* Date Range Filters */}
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 {/* Date From */}
+                 <div>
+                   <label className="block text-sm font-medium text-gray-700 mb-2">Date From</label>
+                   <div className="relative">
+                     <input
+                       type="text"
+                       placeholder="MM/DD/YYYY"
+                       value={dateFrom}
+                       onChange={(e) => {
+                         const value = e.target.value
+                         // Allow only numbers and forward slashes
+                         if (/^[\d/]*$/.test(value)) {
+                           setDateFrom(value)
+                         }
+                       }}
+                       onBlur={(e) => {
+                         const value = e.target.value
+                         if (value && !isValidDateFormat(value)) {
+                           setDateFrom('') // Clear invalid date
+                         }
+                       }}
+                       className={`w-full px-3 py-2 pr-10 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+                         dateFrom && !isValidDateFormat(dateFrom) 
+                           ? 'border-red-300 bg-red-50' 
+                           : 'border-gray-300'
+                       }`}
+                       maxLength={10}
+                     />
+                     <input
+                       type="date"
+                       onChange={(e) => {
+                         if (e.target.value) {
+                           const date = new Date(e.target.value)
+                           const month = (date.getMonth() + 1).toString().padStart(2, '0')
+                           const day = date.getDate().toString().padStart(2, '0')
+                           const year = date.getFullYear()
+                           setDateFrom(`${month}/${day}/${year}`)
+                         }
+                       }}
+                       max={dateTo ? (() => {
+                         const parts = dateTo.split('/')
+                         if (parts.length === 3) {
+                           return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`
+                         }
+                         return undefined
+                       })() : new Date().toISOString().split('T')[0]}
+                       className="absolute right-0 top-0 w-8 h-full opacity-0 cursor-pointer"
+                     />
+                     <Calendar className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                   </div>
+                   {dateFrom && !isValidDateFormat(dateFrom) && (
+                     <p className="text-xs text-red-500 mt-1">Please enter a valid date (MM/DD/YYYY)</p>
+                   )}
+                 </div>
+
+                 {/* Date To */}
+                 <div>
+                   <label className="block text-sm font-medium text-gray-700 mb-2">Date To</label>
+                   <div className="relative">
+                     <input
+                       type="text"
+                       placeholder="MM/DD/YYYY"
+                       value={dateTo}
+                       onChange={(e) => {
+                         const value = e.target.value
+                         // Allow only numbers and forward slashes
+                         if (/^[\d/]*$/.test(value)) {
+                           setDateTo(value)
+                         }
+                       }}
+                       onBlur={(e) => {
+                         const value = e.target.value
+                         if (value && !isValidDateFormat(value)) {
+                           setDateTo('') // Clear invalid date
+                         }
+                       }}
+                       className={`w-full px-3 py-2 pr-10 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+                         dateTo && !isValidDateFormat(dateTo) 
+                           ? 'border-red-300 bg-red-50' 
+                           : 'border-gray-300'
+                       }`}
+                       maxLength={10}
+                     />
+                     <input
+                       type="date"
+                       onChange={(e) => {
+                         if (e.target.value) {
+                           const date = new Date(e.target.value)
+                           const month = (date.getMonth() + 1).toString().padStart(2, '0')
+                           const day = date.getDate().toString().padStart(2, '0')
+                           const year = date.getFullYear()
+                           setDateTo(`${month}/${day}/${year}`)
+                         }
+                       }}
+                       min={dateFrom ? (() => {
+                         const parts = dateFrom.split('/')
+                         if (parts.length === 3) {
+                           return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`
+                         }
+                         return undefined
+                       })() : undefined}
+                       max={new Date().toISOString().split('T')[0]}
+                       className="absolute right-0 top-0 w-8 h-full opacity-0 cursor-pointer"
+                     />
+                     <Calendar className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                   </div>
+                   {dateTo && !isValidDateFormat(dateTo) && (
+                     <p className="text-xs text-red-500 mt-1">Please enter a valid date (MM/DD/YYYY)</p>
+                   )}
+                 </div>
+               </div>
+
+               {/* Clear Filters Button */}
+               <div className="flex justify-end pt-2">
+                 <button
+                   onClick={clearAllFilters}
+                   className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                 >
+                   Clear All Filters
+                 </button>
+               </div>
+             </div>
+           )}
 
           {/* Transactions List */}
           <div className="space-y-3">
