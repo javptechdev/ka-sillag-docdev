@@ -88,7 +88,7 @@ export default function HomePage() {
     firstName: 'Maria',
     lastName: 'Santos',
     email: 'maria.santos@itrmc.gov.ph',
-    avatar: '/avatars/maria-santos.jpg',
+    avatar: undefined,
     role: 'Nurse',
     permissions: ['patient_records', 'appointments', 'nursing_services']
   })

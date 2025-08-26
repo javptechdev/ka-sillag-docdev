@@ -43,26 +43,28 @@ export function Header({
             )}
           </button>
 
-                     {/* Profile Icon */}
-           <button
-             onClick={onProfileClick}
-             className="flex items-center space-x-2 p-2 text-gray-600 hover:text-primary transition-colors"
-             aria-label="Profile"
-           >
-             {userAvatar ? (
-               <img
-                 src={userAvatar}
-                 alt={`${userName}'s avatar`}
-                 className="w-8 h-8 rounded-full object-cover"
-               />
-             ) : (
-               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                 <span className="text-white text-sm font-bold">
-                   {userName.charAt(0).toUpperCase()}
-                 </span>
-               </div>
-             )}
-           </button>
+          {/* Profile Icon */}
+          <button
+            onClick={onProfileClick}
+            className="flex items-center space-x-2 p-2 text-gray-600 hover:text-primary transition-colors"
+            aria-label="Profile"
+          >
+            {userAvatar ? (
+              <img
+                src={userAvatar}
+                alt={`${userName}'s avatar`}
+                className="w-8 h-8 rounded-full object-cover"
+                onError={(e) => {
+                  // Hide broken image and show fallback
+                  e.currentTarget.style.display = 'none'
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden')
+                }}
+              />
+            ) : null}
+            <div className={`w-8 h-8 bg-primary rounded-full flex items-center justify-center ${userAvatar ? 'hidden' : ''}`}>
+              <User size={20} className="text-white" />
+            </div>
+          </button>
         </div>
       </div>
     </header>
