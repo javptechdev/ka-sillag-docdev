@@ -127,154 +127,534 @@ export default function HomePage() {
   const [divisions] = useState<Division[]>([
     {
       id: '1',
-      name: 'Office of the Medical Center Chief Services',
+      name: 'Office of the Medical Center Chief',
       logo: '/icons/placeholder.svg',
       description: 'Administrative and leadership services',
       departments: [
         {
-          id: '1',
-          name: 'Executive Office',
+          id: '1.1',
+          name: 'Professional Education, Training & Research Unit',
           logo: '/icons/placeholder.svg',
-          description: 'Office of the Medical Center Chief',
+          description: 'Professional development and research initiatives',
           unitServices: [
-            { id: '1', name: 'Strategic Planning', logo: '/icons/placeholder.svg', status: 'active' },
-            { id: '2', name: 'Policy Management', logo: '/icons/placeholder.svg', status: 'active' }
+            { id: '1', name: 'Training Programs', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '2', name: 'Research Projects', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '1.2',
+          name: 'Center for Public Health and Primary Health Care',
+          logo: '/icons/placeholder.svg',
+          description: 'Public health initiatives and primary care',
+          unitServices: [
+            { id: '3', name: 'Public Health Programs', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '4', name: 'Primary Care Services', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '1.3',
+          name: 'Disaster Risk Reduction Management for Health Incident Commander Post',
+          logo: '/icons/placeholder.svg',
+          description: 'Emergency response and disaster management',
+          unitServices: [
+            { id: '5', name: 'Emergency Response', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '6', name: 'Disaster Preparedness', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '1.4',
+          name: 'Hospital Infection Control Unit',
+          logo: '/icons/placeholder.svg',
+          description: 'Infection prevention and control',
+          unitServices: [
+            { id: '7', name: 'Infection Monitoring', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '8', name: 'Prevention Protocols', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '1.5',
+          name: 'Legal Unit',
+          logo: '/icons/placeholder.svg',
+          description: 'Legal services and compliance',
+          unitServices: [
+            { id: '9', name: 'Legal Consultation', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '10', name: 'Compliance Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '1.6',
+          name: 'Health Facility Development Unit',
+          logo: '/icons/placeholder.svg',
+          description: 'Facility planning and development',
+          unitServices: [
+            { id: '11', name: 'Facility Planning', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '12', name: 'Development Projects', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '1.7',
+          name: 'Integrated Hospital Operations & Management Program',
+          logo: '/icons/placeholder.svg',
+          description: 'Hospital operations integration',
+          unitServices: [
+            { id: '13', name: 'Operations Management', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '14', name: 'Integration Services', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '1.8',
+          name: 'Quality and Strategy Management',
+          logo: '/icons/placeholder.svg',
+          description: 'Quality assurance and strategic planning',
+          unitServices: [
+            { id: '15', name: 'Quality Assurance', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '16', name: 'Strategic Planning', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         }
       ]
     },
     {
       id: '2',
-      name: 'Medical Services',
+      name: 'Medical Service',
       logo: '/icons/placeholder.svg',
-      description: 'Core medical care and treatment',
+      description: 'Core medical care and treatment services',
       departments: [
         {
-          id: '2',
-          name: 'Cardiology',
+          id: '2.1',
+          name: 'Surgery',
           logo: '/icons/placeholder.svg',
-          description: 'Cardiovascular care and treatment',
+          description: 'Surgical procedures and operations',
           unitServices: [
-            { id: '3', name: 'ECG Services', logo: '/icons/placeholder.svg', status: 'active' },
-            { id: '4', name: 'Echocardiography', logo: '/icons/placeholder.svg', status: 'active' }
+            { id: '17', name: 'General Surgery', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '18', name: 'Specialized Surgery', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         },
         {
-          id: '3',
+          id: '2.2',
+          name: 'Anesthesia',
+          logo: '/icons/placeholder.svg',
+          description: 'Anesthesia and pain management',
+          unitServices: [
+            { id: '19', name: 'Anesthesia Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '20', name: 'Pain Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.3',
+          name: 'Orthopedics',
+          logo: '/icons/placeholder.svg',
+          description: 'Bone and joint care',
+          unitServices: [
+            { id: '21', name: 'Orthopedic Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '22', name: 'Joint Replacement', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.4',
+          name: 'Otorhinolaryngology',
+          logo: '/icons/placeholder.svg',
+          description: 'Ear, nose, and throat care',
+          unitServices: [
+            { id: '23', name: 'ENT Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '24', name: 'Hearing Services', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.5',
+          name: 'OB-Gyne',
+          logo: '/icons/placeholder.svg',
+          description: 'Obstetrics and gynecology',
+          unitServices: [
+            { id: '25', name: 'Prenatal Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '26', name: 'Gynecological Services', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.6',
+          name: 'Ophthalmology',
+          logo: '/icons/placeholder.svg',
+          description: 'Eye care and vision services',
+          unitServices: [
+            { id: '27', name: 'Eye Examinations', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '28', name: 'Vision Correction', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.7',
+          name: 'Dental',
+          logo: '/icons/placeholder.svg',
+          description: 'Dental care and oral health',
+          unitServices: [
+            { id: '29', name: 'Dental Check-ups', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '30', name: 'Dental Procedures', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.8',
+          name: 'Internal Medicine',
+          logo: '/icons/placeholder.svg',
+          description: 'Internal medicine and adult care',
+          unitServices: [
+            { id: '31', name: 'Adult Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '32', name: 'Chronic Disease Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.9',
           name: 'Pediatrics',
           logo: '/icons/placeholder.svg',
           description: 'Child and adolescent care',
           unitServices: [
-            { id: '5', name: 'Child Care', logo: '/icons/placeholder.svg', status: 'active' },
-            { id: '6', name: 'Vaccination', logo: '/icons/placeholder.svg', status: 'active' }
+            { id: '33', name: 'Child Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '34', name: 'Vaccination', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.10',
+          name: 'Rehabilitation Medicine',
+          logo: '/icons/placeholder.svg',
+          description: 'Physical therapy and rehabilitation',
+          unitServices: [
+            { id: '35', name: 'Physical Therapy', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '36', name: 'Rehabilitation Programs', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.11',
+          name: 'Emergency Room',
+          logo: '/icons/placeholder.svg',
+          description: 'Emergency medical services',
+          unitServices: [
+            { id: '37', name: 'Emergency Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '38', name: 'Trauma Services', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.12',
+          name: 'Outpatient Department',
+          logo: '/icons/placeholder.svg',
+          description: 'Outpatient care services',
+          unitServices: [
+            { id: '39', name: 'Outpatient Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '40', name: 'Follow-up Services', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.13',
+          name: 'Community and Family Medicine',
+          logo: '/icons/placeholder.svg',
+          description: 'Community health and family care',
+          unitServices: [
+            { id: '41', name: 'Community Health', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '42', name: 'Family Medicine', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.14',
+          name: 'Pathology',
+          logo: '/icons/placeholder.svg',
+          description: 'Laboratory pathology services',
+          unitServices: [
+            { id: '43', name: 'Pathology Tests', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '44', name: 'Tissue Analysis', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '2.15',
+          name: 'Radiology',
+          logo: '/icons/placeholder.svg',
+          description: 'Medical imaging and radiology',
+          unitServices: [
+            { id: '45', name: 'X-Ray Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '46', name: 'Advanced Imaging', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         }
       ]
     },
     {
       id: '3',
-      name: 'Nursing Services',
+      name: 'Allied Health Professional Service',
       logo: '/icons/placeholder.svg',
-      description: 'Patient care and nursing management',
+      description: 'Supporting healthcare professionals',
       departments: [
         {
-          id: '4',
-          name: 'ICU',
+          id: '3.1',
+          name: 'Medical Social Work',
           logo: '/icons/placeholder.svg',
-          description: 'Intensive Care Unit',
+          description: 'Social work and patient advocacy',
           unitServices: [
-            { id: '7', name: 'Critical Care', logo: '/icons/placeholder.svg', status: 'active' },
-            { id: '8', name: 'Ventilator Management', logo: '/icons/placeholder.svg', status: 'active' }
+            { id: '47', name: 'Social Work Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '48', name: 'Patient Advocacy', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '3.2',
+          name: 'Health Information Management',
+          logo: '/icons/placeholder.svg',
+          description: 'Health records and information',
+          unitServices: [
+            { id: '49', name: 'Records Management', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '50', name: 'Information Systems', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '3.3',
+          name: 'Nutrition & Dietetics',
+          logo: '/icons/placeholder.svg',
+          description: 'Nutritional care and diet planning',
+          unitServices: [
+            { id: '51', name: 'Nutritional Assessment', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '52', name: 'Diet Planning', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '3.4',
+          name: 'Pharmacy',
+          logo: '/icons/placeholder.svg',
+          description: 'Pharmaceutical services',
+          unitServices: [
+            { id: '53', name: 'Medication Dispensing', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '54', name: 'Pharmaceutical Care', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         }
       ]
     },
     {
       id: '4',
-      name: 'Allied Health Professional Services',
+      name: 'Nursing Service',
       logo: '/icons/placeholder.svg',
-      description: 'Supporting healthcare professionals',
+      description: 'Patient care and nursing management',
       departments: [
         {
-          id: '5',
-          name: 'Laboratory',
+          id: '4.1',
+          name: 'Training and Development',
           logo: '/icons/placeholder.svg',
-          description: 'Clinical laboratory services',
+          description: 'Nursing education and training',
           unitServices: [
-            { id: '9', name: 'Blood Tests', logo: '/icons/placeholder.svg', status: 'active' },
-            { id: '10', name: 'Urinalysis', logo: '/icons/placeholder.svg', status: 'active' }
+            { id: '55', name: 'Nursing Education', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '56', name: 'Skills Development', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '4.2',
+          name: 'Clinical and Patient Care',
+          logo: '/icons/placeholder.svg',
+          description: 'Direct patient care services',
+          unitServices: [
+            { id: '57', name: 'Patient Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '58', name: 'Clinical Services', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '4.3',
+          name: 'Operating Room Complex',
+          logo: '/icons/placeholder.svg',
+          description: 'Operating room services',
+          unitServices: [
+            { id: '59', name: 'Surgical Support', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '60', name: 'OR Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '4.4',
+          name: 'Infection Control',
+          logo: '/icons/placeholder.svg',
+          description: 'Nursing infection control',
+          unitServices: [
+            { id: '61', name: 'Infection Prevention', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '62', name: 'Control Measures', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         }
       ]
     },
     {
       id: '5',
-      name: 'Hospital Operations and Patient Support Services',
+      name: 'Hospital Operations & Patient Support Service',
       logo: '/icons/placeholder.svg',
       description: 'Hospital operations and patient assistance',
       departments: [
         {
-          id: '6',
-          name: 'Patient Relations',
+          id: '5.1',
+          name: 'Human Resource Management',
           logo: '/icons/placeholder.svg',
-          description: 'Patient support and relations',
+          description: 'HR services and management',
           unitServices: [
-            { id: '11', name: 'Patient Support', logo: '/icons/placeholder.svg', status: 'active' },
-            { id: '12', name: 'Complaints Management', logo: '/icons/placeholder.svg', status: 'active' }
+            { id: '63', name: 'HR Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '64', name: 'Employee Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '5.2',
+          name: 'Procurement',
+          logo: '/icons/placeholder.svg',
+          description: 'Procurement and purchasing',
+          unitServices: [
+            { id: '65', name: 'Purchasing Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '66', name: 'Vendor Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '5.3',
+          name: 'Materials Management',
+          logo: '/icons/placeholder.svg',
+          description: 'Materials and inventory management',
+          unitServices: [
+            { id: '67', name: 'Inventory Control', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '68', name: 'Materials Tracking', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '5.4',
+          name: 'Engineering & Facilities Management',
+          logo: '/icons/placeholder.svg',
+          description: 'Facility maintenance and engineering',
+          unitServices: [
+            { id: '69', name: 'Facility Maintenance', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '70', name: 'Engineering Services', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '5.5',
+          name: 'Motorpool / Transport Services',
+          logo: '/icons/placeholder.svg',
+          description: 'Transportation and vehicle services',
+          unitServices: [
+            { id: '71', name: 'Transport Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '72', name: 'Vehicle Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '5.6',
+          name: 'Laundry & Linen',
+          logo: '/icons/placeholder.svg',
+          description: 'Laundry and linen services',
+          unitServices: [
+            { id: '73', name: 'Laundry Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '74', name: 'Linen Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '5.7',
+          name: 'Non Medical Records',
+          logo: '/icons/placeholder.svg',
+          description: 'Non-medical documentation',
+          unitServices: [
+            { id: '75', name: 'Document Management', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '76', name: 'Records Archiving', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '5.8',
+          name: 'Security Services',
+          logo: '/icons/placeholder.svg',
+          description: 'Hospital security and safety',
+          unitServices: [
+            { id: '77', name: 'Security Management', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '78', name: 'Safety Protocols', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         }
       ]
     },
     {
       id: '6',
-      name: 'Finance Services',
+      name: 'Finance Service',
       logo: '/icons/placeholder.svg',
       description: 'Financial management and billing',
       departments: [
         {
-          id: '7',
+          id: '6.1',
+          name: 'Budget',
+          logo: '/icons/placeholder.svg',
+          description: 'Budget planning and management',
+          unitServices: [
+            { id: '79', name: 'Budget Planning', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '80', name: 'Financial Planning', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '6.2',
           name: 'Accounting',
           logo: '/icons/placeholder.svg',
           description: 'Financial accounting services',
           unitServices: [
-            { id: '13', name: 'Financial Reports', logo: '/icons/placeholder.svg', status: 'denied' },
-            { id: '14', name: 'Budget Management', logo: '/icons/placeholder.svg', status: 'denied' }
+            { id: '81', name: 'Financial Reports', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '82', name: 'Account Management', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '6.3',
+          name: 'Billing & Claims',
+          logo: '/icons/placeholder.svg',
+          description: 'Billing and insurance claims',
+          unitServices: [
+            { id: '83', name: 'Billing Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '84', name: 'Claims Processing', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '6.4',
+          name: 'Cash Operations',
+          logo: '/icons/placeholder.svg',
+          description: 'Cash management and operations',
+          unitServices: [
+            { id: '85', name: 'Cash Management', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '86', name: 'Financial Operations', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         }
       ]
     },
     {
       id: '7',
-      name: 'BUCAS Tubao Services',
+      name: 'BUCAS',
       logo: '/icons/placeholder.svg',
-      description: 'Branch unit services in Tubao',
+      description: 'Bagong Urgent Care and Ambulatory Service',
       departments: [
         {
-          id: '8',
-          name: 'Local Medical Services',
+          id: '7.1',
+          name: 'Urgent Care Services',
           logo: '/icons/placeholder.svg',
-          description: 'Local medical care in Tubao',
+          description: 'Emergency and urgent care',
           unitServices: [
-            { id: '15', name: 'Local Care', logo: '/icons/placeholder.svg', status: 'active' },
-            { id: '16', name: 'Emergency Services', logo: '/icons/placeholder.svg', status: 'active' }
+            { id: '87', name: 'Emergency Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '88', name: 'Urgent Treatment', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '7.2',
+          name: 'Ambulatory Services',
+          logo: '/icons/placeholder.svg',
+          description: 'Outpatient and ambulatory care',
+          unitServices: [
+            { id: '89', name: 'Outpatient Care', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '90', name: 'Ambulatory Procedures', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         }
       ]
     },
     {
       id: '8',
-      name: 'BUCAS Bangar Services',
+      name: 'ITRMCEA',
       logo: '/icons/placeholder.svg',
-      description: 'Branch unit services in Bangar',
+      description: 'ITRMC Employees Association',
       departments: [
         {
-          id: '9',
-          name: 'Local Medical Services',
+          id: '8.1',
+          name: 'Employee Services',
           logo: '/icons/placeholder.svg',
-          description: 'Local medical care in Bangar',
+          description: 'Employee association services',
           unitServices: [
-            { id: '17', name: 'Local Care', logo: '/icons/placeholder.svg', status: 'active' },
-            { id: '18', name: 'Emergency Services', logo: '/icons/placeholder.svg', status: 'active' }
+            { id: '91', name: 'Member Services', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '92', name: 'Employee Benefits', logo: '/icons/placeholder.svg', status: 'active' }
+          ]
+        },
+        {
+          id: '8.2',
+          name: 'Association Activities',
+          logo: '/icons/placeholder.svg',
+          description: 'Association programs and activities',
+          unitServices: [
+            { id: '93', name: 'Program Management', logo: '/icons/placeholder.svg', status: 'active' },
+            { id: '94', name: 'Activity Coordination', logo: '/icons/placeholder.svg', status: 'active' }
           ]
         }
       ]

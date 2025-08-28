@@ -27,7 +27,7 @@ export function Divisions({ divisions, onDivisionClick }: DivisionsProps) {
       {/* Component Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold text-gray-900">
-          Hospital Divisions
+          Hospital Services
         </h3>
       </div>
 

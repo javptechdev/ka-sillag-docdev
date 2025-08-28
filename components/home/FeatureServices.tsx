@@ -48,7 +48,7 @@ export function FeatureServices({ services, onServiceClick, onSeeAllClick }: Fea
       {/* Component Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold text-gray-900">
-          Feature Services
+          Features
         </h3>
         <button
           onClick={onSeeAllClick}
