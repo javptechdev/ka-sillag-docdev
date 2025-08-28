@@ -47,28 +47,31 @@ export function DivisionModal({ isOpen, division, onClose }: DivisionModalProps)
       <DialogContent className="max-w-none w-full h-full max-h-none p-0">
         {/* Header */}
         <div className="relative bg-white border-b border-gray-200 p-6">
-          {/* Back Arrow */}
-          <button
-            onClick={onClose}
-            className="absolute left-6 top-6 p-2 text-gray-600 hover:text-gray-800 transition-colors"
-            aria-label="Go back"
-          >
-            <ArrowLeft size={24} />
-          </button>
+          {/* Header Content with proper spacing */}
+          <div className="flex items-center justify-between">
+            {/* Back Arrow */}
+            <button
+              onClick={onClose}
+              className="p-2 text-gray-600 hover:text-gray-800 transition-colors"
+              aria-label="Go back"
+            >
+              <ArrowLeft size={24} />
+            </button>
 
-          {/* Division Name */}
-          <h2 className="text-2xl font-semibold text-gray-900 text-center">
-            {division.name}
-          </h2>
+            {/* Division Name - Centered */}
+            <h2 className="text-2xl font-semibold text-gray-900 text-center flex-1 mx-4">
+              {division.name}
+            </h2>
 
-          {/* Info Icon */}
-          <button
-            className="absolute right-6 top-6 p-2 text-gray-600 hover:text-primary transition-colors"
-            aria-label="Division information"
-            onClick={() => alert(`Division Info: ${division.description || 'No description available'}`)}
-          >
-            <Info size={24} />
-          </button>
+            {/* Info Icon */}
+            <button
+              className="p-2 text-gray-600 hover:text-primary transition-colors"
+              aria-label="Division information"
+              onClick={() => alert(`Division Info: ${division.description || 'No description available'}`)}
+            >
+              <Info size={24} />
+            </button>
+          </div>
         </div>
 
         {/* Content */}
