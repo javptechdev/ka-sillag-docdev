@@ -1,5 +1,6 @@
 {
   "/home/page": "app/home/page.js",
   "/division-info/page": "app/division-info/page.js",
-  "/info-content/page": "app/info-content/page.js"
+  "/info-content/page": "app/info-content/page.js",
+  "/qr/page": "app/qr/page.js"
 }

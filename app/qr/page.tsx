@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Filter, Clock, User, Building2, Calendar, FileText, Search } from 'lucide-react'
+import { Filter, Clock, User, Building2, Calendar, FileText, Search, ArrowLeft, ThumbsUp, Radio, CheckCircle } from 'lucide-react'
 import { Header } from '@/components/home/Header'
 import { HorizontalNavigationBar } from '@/components/home/HorizontalNavigationBar'
 import { User as UserType } from '@/types'
@@ -16,6 +16,21 @@ interface QRTransaction {
   location: string
   timestamp: Date
   status: 'completed' | 'pending' | 'cancelled'
+  description: string
+}
+
+// Event interface
+interface Event {
+  id: string
+  title: string
+  dateTime: Date
+  location: string
+  subunit: string
+  department: string
+  status: 'upcoming' | 'happening-now' | 'finished'
+  eventType: 'face-to-face' | 'pure-online' | 'hybrid'
+  interestedCount: number
+  participatedCount?: number
   description: string
 }
 
@@ -115,12 +130,89 @@ export default function QRPage() {
     }
   ])
 
-  // State for filtering
+  // Mock events data
+  const [events] = useState<Event[]>([
+    {
+      id: '1',
+      title: 'Monthly Department Meeting',
+      dateTime: new Date('2024-01-20T08:00:00'),
+      location: 'Conference Room A, 3rd Floor',
+      subunit: 'Internal Medicine',
+      department: 'Medical Division',
+      status: 'upcoming',
+      eventType: 'face-to-face',
+      interestedCount: 45,
+      description: 'Monthly review of department performance and upcoming projects'
+    },
+    {
+      id: '2',
+      title: 'Emergency Response Training',
+      dateTime: new Date('2024-01-19T13:00:00'),
+      location: 'Training Hall, 4th Floor',
+      subunit: 'Emergency Department',
+      department: 'Emergency Division',
+      status: 'happening-now',
+      eventType: 'face-to-face',
+      interestedCount: 38,
+      participatedCount: 32,
+      description: 'CPR and emergency response procedures training'
+    },
+    {
+      id: '3',
+      title: 'Quality Improvement Workshop',
+      dateTime: new Date('2024-01-18T14:00:00'),
+      location: 'Seminar Room B, 3rd Floor',
+      subunit: 'Quality Assurance',
+      department: 'Administrative Division',
+      status: 'finished',
+      eventType: 'hybrid',
+      interestedCount: 52,
+      participatedCount: 48,
+      description: 'Workshop on improving patient care quality'
+    },
+    {
+      id: '4',
+      title: 'New Medical Equipment Training',
+      dateTime: new Date('2024-01-22T10:00:00'),
+      location: 'Medical Equipment Lab, 2nd Floor',
+      subunit: 'Biomedical Engineering',
+      department: 'Technical Division',
+      status: 'upcoming',
+      eventType: 'face-to-face',
+      interestedCount: 28,
+      description: 'Training on new diagnostic equipment operation'
+    },
+    {
+      id: '5',
+      title: 'Patient Safety Seminar',
+      dateTime: new Date('2024-01-17T09:00:00'),
+      location: 'Auditorium, Ground Floor',
+      subunit: 'Patient Safety',
+      department: 'Quality Division',
+      status: 'finished',
+      eventType: 'pure-online',
+      interestedCount: 65,
+      participatedCount: 61,
+      description: 'Seminar on patient safety protocols and best practices'
+    }
+  ])
+
+  // State for tabs
+  const [activeTab, setActiveTab] = useState<'transactions' | 'events'>('transactions')
+  
+  // State for transaction filtering
   const [typeFilter, setTypeFilter] = useState<string>('all')
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [dateFrom, setDateFrom] = useState<string>('')
   const [dateTo, setDateTo] = useState<string>('')
   const [showFilters, setShowFilters] = useState(false)
+  
+  // State for event filtering
+  const [eventStatusFilter, setEventStatusFilter] = useState<string>('all')
+  const [eventTypeFilter, setEventTypeFilter] = useState<string>('all')
+  const [eventDateFrom, setEventDateFrom] = useState<string>('')
+  const [eventDateTo, setEventDateTo] = useState<string>('')
+  const [showEventFilters, setShowEventFilters] = useState(false)
   
   // State for QR code
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>('')
@@ -208,6 +300,45 @@ export default function QRPage() {
       return matchesType && matchesStatus && matchesDate
     })
     .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()) // Most recent first
+
+  // Filter events based on filters
+  const filteredEvents = events
+    .filter(event => {
+      const matchesStatus = eventStatusFilter === 'all' || event.status === eventStatusFilter
+      const matchesType = eventTypeFilter === 'all' || event.eventType === eventTypeFilter
+      
+      // Date filtering
+      let matchesDate = true
+      if (eventDateFrom) {
+        const parts = eventDateFrom.split('/')
+        if (parts.length === 3) {
+          const month = parts[0].padStart(2, '0')
+          const day = parts[1].padStart(2, '0')
+          const year = parts[2]
+          const fromDate = new Date(`${year}-${month}-${day}`)
+          fromDate.setHours(0, 0, 0, 0)
+          if (event.dateTime < fromDate) {
+            matchesDate = false
+          }
+        }
+      }
+      if (eventDateTo) {
+        const parts = eventDateTo.split('/')
+        if (parts.length === 3) {
+          const month = parts[0].padStart(2, '0')
+          const day = parts[1].padStart(2, '0')
+          const year = parts[2]
+          const toDate = new Date(`${year}-${month}-${day}`)
+          toDate.setHours(23, 59, 59, 999)
+          if (event.dateTime > toDate) {
+            matchesDate = false
+          }
+        }
+      }
+      
+      return matchesStatus && matchesType && matchesDate
+    })
+    .sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime()) // Chronological order
 
   const handleNotificationClick = () => {
     alert('Opening notifications...')
@@ -308,6 +439,68 @@ export default function QRPage() {
     }
   }
 
+  // Event helper functions
+  const getEventStatusColor = (status: string) => {
+    switch (status) {
+      case 'upcoming':
+        return 'bg-blue-100 text-blue-800 border-blue-200'
+      case 'happening-now':
+        return 'bg-green-100 text-green-800 border-green-200'
+      case 'finished':
+        return 'bg-gray-100 text-gray-800 border-gray-200'
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200'
+    }
+  }
+
+  const getEventStatusText = (status: string) => {
+    switch (status) {
+      case 'upcoming':
+        return 'Upcoming'
+      case 'happening-now':
+        return 'Happening Now'
+      case 'finished':
+        return 'Finished'
+      default:
+        return 'Unknown'
+    }
+  }
+
+  const formatEventDateTime = (date: Date) => {
+    return date.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  }
+
+  const getEventTypeIcon = (type: string) => {
+    switch (type) {
+      case 'face-to-face':
+        return <User size={16} className="text-blue-600" />
+      case 'pure-online':
+        return <Radio size={16} className="text-purple-600" />
+      case 'hybrid':
+        return <User size={16} className="text-green-600" />
+      default:
+        return <User size={16} className="text-gray-600" />
+    }
+  }
+
+  const getEventTypeText = (type: string) => {
+    switch (type) {
+      case 'face-to-face':
+        return 'Face to Face'
+      case 'pure-online':
+        return 'Pure Online'
+      case 'hybrid':
+        return 'Hybrid'
+      default:
+        return 'Unknown'
+    }
+  }
+
   const formatTimestamp = (date: Date) => {
     return date.toLocaleString('en-US', {
       year: 'numeric',
@@ -323,6 +516,19 @@ export default function QRPage() {
     setStatusFilter('all')
     setDateFrom('')
     setDateTo('')
+  }
+
+  const clearAllEventFilters = () => {
+    setEventStatusFilter('all')
+    setEventTypeFilter('all')
+    setEventDateFrom('')
+    setEventDateTo('')
+  }
+
+  const handleEventClick = (event: Event) => {
+    // For now, just show event info
+    // Later this can open event details modal or navigate to event details page
+    alert(`Event: ${event.title}\n\nStatus: ${getEventStatusText(event.status)}\nDate: ${formatEventDateTime(event.dateTime)}\nLocation: ${event.location}\nHosted by: ${event.subunit} from ${event.department}\nInterested: ${event.interestedCount}${event.participatedCount ? `\nParticipated: ${event.participatedCount}` : ''}`)
   }
 
   // Scan QR functionality
@@ -514,23 +720,51 @@ export default function QRPage() {
            </div>
          </div>
 
-        {/* Transaction History Section */}
+        {/* Tabs Section */}
         <div className="space-y-4">
-          {/* Header and Filter */}
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-gray-900">My QR Transaction History</h3>
-                         <button
-               onClick={() => setShowFilters(!showFilters)}
-               className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2 relative"
-             >
-               <Filter className="w-4 h-4 text-gray-600" />
-               <span className="text-sm text-gray-700">Filter</span>
-               {/* Active filters indicator */}
-               {(typeFilter !== 'all' || statusFilter !== 'all' || dateFrom || dateTo) && (
-                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"></span>
-               )}
-             </button>
+          {/* Tabs Header */}
+          <div className="flex space-x-1 bg-gray-100 p-1 rounded-xl">
+            <button
+              onClick={() => setActiveTab('transactions')}
+              className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all duration-200 ${
+                activeTab === 'transactions'
+                  ? 'bg-white text-primary shadow-sm'
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              Transaction History
+            </button>
+            <button
+              onClick={() => setActiveTab('events')}
+              className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all duration-200 ${
+                activeTab === 'events'
+                  ? 'bg-white text-primary shadow-sm'
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              Events
+            </button>
           </div>
+
+          {/* Tab Content */}
+          {activeTab === 'transactions' ? (
+            /* Transaction History Tab */
+            <div className="space-y-4">
+              {/* Header and Filter */}
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold text-gray-900">My QR Transaction History</h3>
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2 relative"
+                >
+                  <Filter className="w-4 h-4 text-gray-600" />
+                  <span className="text-sm text-gray-700">Filter</span>
+                  {/* Active filters indicator */}
+                  {(typeFilter !== 'all' || statusFilter !== 'all' || dateFrom || dateTo) && (
+                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"></span>
+                  )}
+                </button>
+              </div>
 
                      {/* Filter Options */}
            {showFilters && (
@@ -754,6 +988,174 @@ export default function QRPage() {
               <p className="text-sm text-gray-400 mt-1">Try adjusting your filters.</p>
             </div>
           )}
+        </div>
+      ) : (
+        /* Events Tab */
+        <div className="space-y-4">
+          {/* Header and Filter */}
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-semibold text-gray-900">Hospital Events</h3>
+            <button
+              onClick={() => setShowEventFilters(!showEventFilters)}
+              className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2 relative"
+            >
+              <Filter className="w-4 h-4 text-gray-600" />
+              <span className="text-sm text-gray-700">Filter</span>
+              {/* Active filters indicator */}
+              {(eventStatusFilter !== 'all' || eventTypeFilter !== 'all' || eventDateFrom || eventDateTo) && (
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"></span>
+              )}
+            </button>
+          </div>
+
+          {/* Event Filter Options */}
+          {showEventFilters && (
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Status Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Event Status</label>
+                  <select
+                    value={eventStatusFilter}
+                    onChange={(e) => setEventStatusFilter(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="happening-now">Happening Now</option>
+                    <option value="finished">Finished</option>
+                  </select>
+                </div>
+
+                {/* Event Type Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Event Type</label>
+                  <select
+                    value={eventTypeFilter}
+                    onChange={(e) => setEventTypeFilter(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  >
+                    <option value="all">All Types</option>
+                    <option value="face-to-face">Face to Face</option>
+                    <option value="pure-online">Pure Online</option>
+                    <option value="hybrid">Hybrid</option>
+                  </select>
+                </div>
+
+                {/* Date Range Filters */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="date"
+                      value={eventDateFrom}
+                      onChange={(e) => setEventDateFrom(e.target.value)}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    />
+                    <input
+                      type="date"
+                      value={eventDateTo}
+                      onChange={(e) => setEventDateTo(e.target.value)}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Clear Filters Button */}
+              <div className="flex justify-end pt-2">
+                <button
+                  onClick={clearAllEventFilters}
+                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  Clear All Filters
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Events List */}
+          <div className="space-y-3">
+            {filteredEvents.map((event) => (
+              <div
+                key={event.id}
+                onClick={() => handleEventClick(event)}
+                className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
+              >
+                <div className="flex items-center space-x-4">
+                  {/* Calendar Icon with Date/Time */}
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Calendar className="w-6 h-6 text-primary" />
+                  </div>
+
+                  {/* Event Details */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <h4 className="text-lg font-semibold text-gray-900 truncate">
+                        {event.title}
+                      </h4>
+                      <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full border ${getEventStatusColor(event.status)}`}>
+                        {getEventStatusText(event.status)}
+                      </span>
+                    </div>
+                    
+                    <p className="text-gray-600 text-sm mb-2">
+                      Hosted by {event.subunit} from {event.department}
+                    </p>
+                    
+                    <div className="flex items-center space-x-4 text-xs text-gray-500">
+                      <div className="flex items-center space-x-1">
+                        <Calendar className="w-3 h-3" />
+                        <span>{formatEventDateTime(event.dateTime)}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Building2 className="w-3 h-3" />
+                        <span>{event.location}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        {getEventTypeIcon(event.eventType)}
+                        <span>{getEventTypeText(event.eventType)}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Stats Row with Icons */}
+                    <div className="flex items-center space-x-4 text-xs text-gray-500 mt-2">
+                      <div className="flex items-center space-x-1">
+                        <ThumbsUp className="w-3 h-3 text-blue-600" />
+                        <span>{event.interestedCount}</span>
+                      </div>
+                      {event.status === 'happening-now' && (
+                        <div className="flex items-center space-x-1">
+                          <Radio className="w-3 h-3 text-red-600" />
+                          <span>{event.participatedCount || 0}</span>
+                        </div>
+                      )}
+                      {event.status === 'finished' && event.participatedCount && (
+                        <div className="flex items-center space-x-1">
+                          <CheckCircle className="w-3 h-3 text-green-600" />
+                          <span>{event.participatedCount}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Arrow */}
+                  <div className="flex-shrink-0">
+                    <ArrowLeft size={20} className="text-gray-400 rotate-180" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {filteredEvents.length === 0 && (
+            <div className="text-center py-8">
+              <p className="text-gray-500">No events found matching your criteria.</p>
+              <p className="text-sm text-gray-400 mt-1">Try adjusting your filters.</p>
+            </div>
+          )}
+        </div>
+      )}
         </div>
       </main>
 
