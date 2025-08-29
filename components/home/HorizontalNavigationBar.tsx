@@ -1,9 +1,9 @@
 'use client'
 
-import { Home, Settings, QrCode, Clock, MoreHorizontal } from 'lucide-react'
+import { Home, Heart, QrCode, BarChart3, MoreHorizontal } from 'lucide-react'
 
 interface HorizontalNavigationBarProps {
-  currentModule: 'home' | 'services' | 'qr' | 'latest' | 'others'
+  currentModule: 'home' | 'services' | 'qr' | 'analytics' | 'others'
   onNavigationClick: (moduleName: string) => void
   className?: string
 }
@@ -19,7 +19,7 @@ export function HorizontalNavigationBar({ currentModule, onNavigationClick, clas
     {
       id: 'services',
       label: 'Services',
-      icon: Settings,
+      icon: Heart,
       isHighlighted: currentModule === 'services'
     },
     {
@@ -30,10 +30,10 @@ export function HorizontalNavigationBar({ currentModule, onNavigationClick, clas
       isElevated: true
     },
     {
-      id: 'latest',
-      label: 'Latest',
-      icon: Clock,
-      isHighlighted: currentModule === 'latest'
+      id: 'analytics',
+      label: 'Analytics',
+      icon: BarChart3,
+      isHighlighted: currentModule === 'analytics'
     },
     {
       id: 'others',

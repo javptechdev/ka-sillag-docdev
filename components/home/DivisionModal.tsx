@@ -67,7 +67,12 @@ export function DivisionModal({ isOpen, division, onClose }: DivisionModalProps)
             <button
               className="p-2 text-gray-600 hover:text-primary transition-colors"
               aria-label="Division information"
-              onClick={() => alert(`Division Info: ${division.description || 'No description available'}`)}
+              onClick={() => {
+                // Store division name and redirect to Division Info Module
+                localStorage.setItem('selectedDivision', division.name)
+                const params = new URLSearchParams({ division: division.name })
+                window.location.href = `/division-info?${params.toString()}`
+              }}
             >
               <Info size={24} />
             </button>

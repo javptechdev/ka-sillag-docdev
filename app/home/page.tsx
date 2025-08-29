@@ -756,8 +756,8 @@ export default function HomePage() {
   }
 
   const handleSeeAllAnnouncements = () => {
-    // In real app, navigate to Latest Module
-    alert('Navigating to Latest Module...')
+    // In real app, navigate to Analytics Module
+    alert('Navigating to Analytics Module...')
   }
 
   const handleNavigationClick = (moduleName: string) => {
@@ -765,8 +765,8 @@ export default function HomePage() {
       window.location.href = '/services'
     } else if (moduleName === 'qr') {
       window.location.href = '/qr'
-    } else if (moduleName === 'latest') {
-      alert('Navigating to Latest module...')
+    } else if (moduleName === 'analytics') {
+      alert('Navigating to Analytics module...')
     } else if (moduleName === 'others') {
       alert('Navigating to Others module...')
     }

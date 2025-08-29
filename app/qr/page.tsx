@@ -224,8 +224,8 @@ export default function QRPage() {
       window.location.href = '/services'
     } else if (moduleName === 'qr') {
       return // Already on QR page
-    } else if (moduleName === 'latest') {
-      alert('Navigating to Latest module...')
+    } else if (moduleName === 'analytics') {
+      alert('Navigating to Analytics module...')
     } else if (moduleName === 'others') {
       alert('Navigating to Others module...')
     }
