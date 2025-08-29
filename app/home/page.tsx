@@ -760,17 +760,7 @@ export default function HomePage() {
     alert('Navigating to Analytics Module...')
   }
 
-  const handleNavigationClick = (moduleName: string) => {
-    if (moduleName === 'services') {
-      window.location.href = '/services'
-    } else if (moduleName === 'qr') {
-      window.location.href = '/qr'
-    } else if (moduleName === 'analytics') {
-      alert('Navigating to Analytics module...')
-    } else if (moduleName === 'others') {
-      alert('Navigating to Others module...')
-    }
-  }
+
 
   const handleNotificationClick = () => {
     setShowNotificationsModal(true)
@@ -820,7 +810,6 @@ export default function HomePage() {
       {/* Horizontal Navigation Bar */}
       <HorizontalNavigationBar 
         currentModule="home"
-        onNavigationClick={handleNavigationClick}
       />
 
       {/* Modals */}

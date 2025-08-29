@@ -4,11 +4,37 @@ import { Home, Heart, QrCode, BarChart3, MoreHorizontal } from 'lucide-react'
 
 interface HorizontalNavigationBarProps {
   currentModule: 'home' | 'services' | 'qr' | 'analytics' | 'others'
-  onNavigationClick: (moduleName: string) => void
   className?: string
 }
 
-export function HorizontalNavigationBar({ currentModule, onNavigationClick, className = '' }: HorizontalNavigationBarProps) {
+export function HorizontalNavigationBar({ currentModule, className = '' }: HorizontalNavigationBarProps) {
+  // Handle navigation automatically
+  const handleNavigation = (moduleName: string) => {
+    if (moduleName === currentModule) {
+      return // Already on this page
+    }
+    
+    switch (moduleName) {
+      case 'home':
+        window.location.href = '/home'
+        break
+      case 'services':
+        window.location.href = '/services'
+        break
+      case 'qr':
+        window.location.href = '/qr'
+        break
+      case 'analytics':
+        window.location.href = '/analytics'
+        break
+      case 'others':
+        alert('Navigating to Others Module...')
+        break
+      default:
+        break
+    }
+  }
+
   const navigationItems = [
     {
       id: 'home',
@@ -53,7 +79,7 @@ export function HorizontalNavigationBar({ currentModule, onNavigationClick, clas
           return (
             <button
               key={item.id}
-              onClick={() => onNavigationClick(item.id)}
+              onClick={() => handleNavigation(item.id)}
               className={`flex flex-col items-center justify-center space-y-1 transition-all duration-200 ${
                 item.isElevated 
                   ? 'relative -top-2 transform scale-110' 

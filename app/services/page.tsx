@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Search, Filter, Building2 } from 'lucide-react'
+import { Search, Filter, Building2, Heart } from 'lucide-react'
 import { Header } from '@/components/home/Header'
 import { HorizontalNavigationBar } from '@/components/home/HorizontalNavigationBar'
 import { User } from '@/types'
@@ -166,17 +166,7 @@ export default function ServicesPage() {
     alert('Opening profile...')
   }
 
-  const handleNavigationClick = (moduleName: string) => {
-    if (moduleName === 'home') {
-      window.location.href = '/home'
-    } else if (moduleName === 'qr') {
-      window.location.href = '/qr'
-    } else if (moduleName === 'analytics') {
-      alert('Navigating to Analytics module...')
-    } else if (moduleName === 'others') {
-      alert('Navigating to Others module...')
-    }
-  }
+
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -302,7 +292,7 @@ export default function ServicesPage() {
         {/* Services List */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-gray-900">Available Microservices</h2>
+            <h2 className="text-xl font-semibold text-gray-900">Available Services</h2>
             <span className="text-sm text-gray-500">{filteredServices.length} services found</span>
           </div>
 
@@ -314,13 +304,14 @@ export default function ServicesPage() {
                 className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 cursor-pointer"
               >
                 <div className="flex items-center space-x-4">
-                  {/* Service Logo */}
-                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <img
-                      src={service.logo}
-                      alt={`${service.name} logo`}
-                      className="w-8 h-8 object-contain"
-                    />
+                  {/* Service Image Placeholder */}
+                  <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm border-2 border-dashed border-gray-300 relative overflow-hidden">
+                    {/* Placeholder Icon */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
+                      <Heart className="w-6 h-6 text-gray-400" />
+                    </div>
+                    {/* Service Image (when available) */}
+                    {/* <img src={service.logo} alt={service.name} className="w-full h-full object-cover rounded-lg" /> */}
                   </div>
 
                   {/* Service Details */}
@@ -360,7 +351,6 @@ export default function ServicesPage() {
       {/* Horizontal Navigation Bar - Services highlighted */}
       <HorizontalNavigationBar 
         currentModule="services"
-        onNavigationClick={handleNavigationClick}
       />
     </div>
   )

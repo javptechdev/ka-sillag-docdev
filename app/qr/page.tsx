@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Filter, Clock, User, Building2, Calendar, FileText, Search, ArrowLeft, ThumbsUp, Radio, CheckCircle } from 'lucide-react'
+import { Filter, Clock, User, Building2, Calendar, FileText, Search, ArrowLeft, ThumbsUp, Radio, CheckCircle, ImageIcon } from 'lucide-react'
 import { Header } from '@/components/home/Header'
 import { HorizontalNavigationBar } from '@/components/home/HorizontalNavigationBar'
 import { User as UserType } from '@/types'
@@ -348,19 +348,7 @@ export default function QRPage() {
     alert('Opening profile...')
   }
 
-  const handleNavigationClick = (moduleName: string) => {
-    if (moduleName === 'home') {
-      window.location.href = '/home'
-    } else if (moduleName === 'services') {
-      window.location.href = '/services'
-    } else if (moduleName === 'qr') {
-      return // Already on QR page
-    } else if (moduleName === 'analytics') {
-      alert('Navigating to Analytics module...')
-    } else if (moduleName === 'others') {
-      alert('Navigating to Others module...')
-    }
-  }
+
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -1084,8 +1072,13 @@ export default function QRPage() {
               >
                 <div className="flex items-center space-x-4">
                   {/* Event Image Placeholder */}
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
-                    <Calendar className="w-6 h-6 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm border-2 border-dashed border-gray-300 relative overflow-hidden">
+                    {/* Placeholder Icon */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
+                      <ImageIcon className="w-6 h-6 text-gray-400" />
+                    </div>
+                    {/* Event Image (when available) */}
+                    {/* <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover rounded-lg" /> */}
                   </div>
 
                   {/* Event Details */}
@@ -1192,7 +1185,6 @@ export default function QRPage() {
              {/* Horizontal Navigation Bar - QR highlighted */}
        <HorizontalNavigationBar 
          currentModule="qr"
-         onNavigationClick={handleNavigationClick}
        />
 
        {/* Scan QR Modal */}
