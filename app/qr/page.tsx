@@ -1083,57 +1083,87 @@ export default function QRPage() {
                 className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
               >
                 <div className="flex items-center space-x-4">
-                  {/* Calendar Icon with Date/Time */}
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Calendar className="w-6 h-6 text-primary" />
+                  {/* Event Image Placeholder */}
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
+                    <Calendar className="w-6 h-6 text-white" />
                   </div>
 
                   {/* Event Details */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <h4 className="text-lg font-semibold text-gray-900 truncate">
+                    {/* Title and Status Row */}
+                    <div className="flex items-start justify-between mb-3">
+                      <h4 className="text-lg font-semibold text-gray-900 flex-1 mr-3">
                         {event.title}
                       </h4>
-                      <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full border ${getEventStatusColor(event.status)}`}>
-                        {getEventStatusText(event.status)}
-                      </span>
-                    </div>
-                    
-                    <p className="text-gray-600 text-sm mb-2">
-                      Hosted by {event.subunit} from {event.department}
-                    </p>
-                    
-                    <div className="flex items-center space-x-4 text-xs text-gray-500">
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="w-3 h-3" />
-                        <span>{formatEventDateTime(event.dateTime)}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Building2 className="w-3 h-3" />
-                        <span>{event.location}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        {getEventTypeIcon(event.eventType)}
-                        <span>{getEventTypeText(event.eventType)}</span>
+                      <div className="flex flex-col items-end space-y-1">
+                        <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full border ${getEventStatusColor(event.status)}`}>
+                          {getEventStatusText(event.status)}
+                        </span>
+                        <span className="inline-block px-2 py-1 text-xs font-medium rounded-full border bg-gray-100 text-gray-700 border-gray-200">
+                          {getEventTypeText(event.eventType)}
+                        </span>
                       </div>
                     </div>
                     
-                    {/* Stats Row with Icons */}
-                    <div className="flex items-center space-x-4 text-xs text-gray-500 mt-2">
-                      <div className="flex items-center space-x-1">
-                        <ThumbsUp className="w-3 h-3 text-blue-600" />
-                        <span>{event.interestedCount}</span>
+                    {/* Host Information */}
+                    <div className="mb-3">
+                      <p className="text-sm text-gray-600">
+                        Hosted by <span className="font-medium text-gray-800">{event.subunit}</span> from <span className="font-medium text-gray-800">{event.department}</span>
+                      </p>
+                    </div>
+                    
+                    {/* Event Details Grid */}
+                    <div className="grid grid-cols-2 gap-3 mb-3">
+                      {/* Date & Time */}
+                      <div className="flex items-center space-x-2">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <Calendar className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-500">Date & Time</p>
+                          <p className="text-sm font-medium text-gray-900">{formatEventDateTime(event.dateTime)}</p>
+                        </div>
                       </div>
+                      
+                      {/* Location */}
+                      <div className="flex items-center space-x-2">
+                        <div className="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center">
+                          <Building2 className="w-4 h-4 text-purple-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-500">Location</p>
+                          <p className="text-sm font-medium text-gray-900">{event.location}</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Participation Stats */}
+                    <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-6 h-6 bg-blue-50 rounded-full flex items-center justify-center">
+                          <ThumbsUp className="w-3 h-3 text-blue-600" />
+                        </div>
+                        <span className="text-sm font-medium text-gray-900">{event.interestedCount}</span>
+                        <span className="text-xs text-gray-500">interested</span>
+                      </div>
+                      
                       {event.status === 'happening-now' && (
-                        <div className="flex items-center space-x-1">
-                          <Radio className="w-3 h-3 text-red-600" />
-                          <span>{event.participatedCount || 0}</span>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 bg-red-50 rounded-full flex items-center justify-center">
+                            <Radio className="w-3 h-3 text-red-600" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-900">{event.participatedCount || 0}</span>
+                          <span className="text-xs text-gray-500">participating</span>
                         </div>
                       )}
+                      
                       {event.status === 'finished' && event.participatedCount && (
-                        <div className="flex items-center space-x-1">
-                          <CheckCircle className="w-3 h-3 text-green-600" />
-                          <span>{event.participatedCount}</span>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 bg-green-50 rounded-full flex items-center justify-center">
+                            <CheckCircle className="w-3 h-3 text-green-600" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-900">{event.participatedCount}</span>
+                          <span className="text-xs text-gray-500">participated</span>
                         </div>
                       )}
                     </div>

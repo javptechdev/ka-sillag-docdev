@@ -11,16 +11,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/home/page.js"
     ],
-    "/division-info/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/division-info/page.js"
-    ],
-    "/info-content/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/info-content/page.js"
-    ],
     "/qr/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
