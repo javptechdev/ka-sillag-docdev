@@ -430,7 +430,7 @@ export default function AnalyticsPage() {
 
                   {/* Section 2: Step 1 - Security Check */}
                   <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Step 1 - Security Check</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Step 1a - Security Check</h3>
                     
                     {/* Tab Navigation */}
                     <div className="border-b border-gray-200 mb-6">
@@ -471,45 +471,60 @@ export default function AnalyticsPage() {
                     {/* Tab Content */}
                     {activeTab === 'total' && (
                       <div className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                           {/* Total Queue Released */}
                           <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-start">
+                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                <span className="text-blue-600 text-2xl">👤</span>
+                              </div>
                               <div>
-                                <p className="text-sm font-medium text-blue-600">Total Queue Released</p>
+                                <p className="text-sm font-medium text-blue-600">Total Queue Released for Step 1b - Initial Triaging</p>
                                 <p className="text-2xl font-bold text-blue-900">156</p>
                                 <p className="text-xs text-blue-600">Today</p>
-                              </div>
-                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <span className="text-blue-600 font-bold text-lg">Q</span>
                               </div>
                             </div>
                           </div>
 
                           {/* Active Staff */}
                           <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-start">
+                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <span className="text-green-600 font-bold text-lg">👮</span>
+                              </div>
                               <div>
                                 <p className="text-sm font-medium text-green-600">Active Staff</p>
-                                <p className="text-2xl font-bold text-green-900">3</p>
-                                <p className="text-xs text-green-600">Security Officers</p>
-                              </div>
-                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <span className="text-green-600 font-bold text-lg">👮</span>
+                                <p className="text-2xl font-bold text-green-900">1</p>
+                                <p className="text-xs text-green-600">Security Officer</p>
                               </div>
                             </div>
                           </div>
+                        </div>
 
-                          {/* Current Status */}
-                          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <p className="text-sm font-medium text-purple-600">Current Status</p>
-                                <p className="text-2xl font-bold text-purple-900">Active</p>
-                                <p className="text-xs text-purple-600">All Areas</p>
+                        {/* Current Status Overview */}
+                        <div className="bg-white rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Current Status of Triage Areas</h4>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                  <span className="text-green-600 text-xl">✓</span>
+                                </div>
+                                <div>
+                                  <p className="font-medium text-green-800">Triage 1</p>
+                                  <p className="text-sm text-green-600">Active</p>
+                                </div>
                               </div>
-                              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <span className="text-purple-600 font-bold text-lg">✓</span>
+                            </div>
+                            <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                  <span className="text-red-600 text-xl">❌</span>
+                                </div>
+                                <div>
+                                  <p className="font-medium text-red-800">Triage 2</p>
+                                  <p className="text-sm text-red-600">Close</p>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -517,32 +532,21 @@ export default function AnalyticsPage() {
 
                         {/* Staff Details */}
                         <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                          <h4 className="font-semibold text-gray-900 mb-3">Staff on Duty</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="text-center">
-                              <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <span className="text-blue-600 font-bold">👮</span>
+                          <h4 className="font-semibold text-gray-900 mb-3">Step 1a - Security Check Staffs on Duty</h4>
+                          <div className="space-y-2">
+                            <div className="flex items-center space-x-3 p-2 bg-white rounded-lg border border-gray-200">
+                              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-blue-600 font-bold text-sm">👮</span>
                               </div>
-                              <p className="text-sm font-medium text-gray-900">Guard Santos</p>
-                              <p className="text-xs text-gray-600">Triage 1 Area</p>
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
-                            </div>
-                            <div className="text-center">
-                              <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <span className="text-green-600 font-bold">👮</span>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-gray-900">Jasper Andrada</p>
+                                <p className="text-xs text-gray-600">Security Officer</p>
+                                <p className="text-xs text-gray-500">Triage 1</p>
                               </div>
-                              <p className="text-sm font-medium text-gray-900">Guard Cruz</p>
-                              <p className="text-xs text-gray-600">Triage 2 Area</p>
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
                             </div>
-                            <div className="text-center">
-                              <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <span className="text-purple-600 font-bold">👮</span>
-                              </div>
-                              <p className="text-sm font-medium text-gray-900">Guard Reyes</p>
-                              <p className="text-xs text-gray-600">Floating</p>
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
-                            </div>
+
+
                           </div>
                         </div>
                       </div>
@@ -553,42 +557,42 @@ export default function AnalyticsPage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                           {/* Triage 1 Queue Released */}
                           <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-start">
+                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                <span className="text-blue-600 text-2xl">👤</span>
+                              </div>
                               <div>
-                                <p className="text-sm font-medium text-blue-600">Queue Released</p>
+                                <p className="text-sm font-medium text-blue-600">Queue Released for Step 1b - Initial Triaging</p>
                                 <p className="text-2xl font-bold text-blue-900">78</p>
                                 <p className="text-xs text-blue-600">Triage 1 Only</p>
-                              </div>
-                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <span className="text-blue-600 font-bold text-lg">Q1</span>
                               </div>
                             </div>
                           </div>
 
                           {/* Triage 1 Staff */}
                           <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-start">
+                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <span className="text-green-600 font-bold text-lg">👮</span>
+                              </div>
                               <div>
                                 <p className="text-sm font-medium text-green-600">Active Staff</p>
-                                <p className="text-2xl font-bold text-green-900">2</p>
-                                <p className="text-xs text-green-600">Security Officers</p>
-                              </div>
-                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <span className="text-green-600 font-bold text-lg">👮</span>
+                                <p className="text-2xl font-bold text-green-900">1</p>
+                                <p className="text-xs text-green-600">Security Officer</p>
                               </div>
                             </div>
                           </div>
 
                           {/* Triage 1 Status */}
                           <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-start">
+                              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                <span className="text-purple-600 font-bold text-lg">✓</span>
+                              </div>
                               <div>
                                 <p className="text-sm font-medium text-purple-600">Status</p>
                                 <p className="text-2xl font-bold text-purple-900">Active</p>
                                 <p className="text-xs text-purple-600">Triage 1 Area</p>
-                              </div>
-                              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <span className="text-purple-600 font-bold text-lg">✓</span>
                               </div>
                             </div>
                           </div>
@@ -596,23 +600,18 @@ export default function AnalyticsPage() {
 
                         {/* Triage 1 Staff Details */}
                         <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                          <h4 className="font-semibold text-gray-900 mb-3">Triage 1 Staff on Duty</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="text-center">
-                              <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <span className="text-blue-600 font-bold">👮</span>
+                          <h4 className="font-semibold text-gray-900 mb-3">Triage 1 - Security Check Staff on Duty</h4>
+                          <div className="space-y-2">
+                            <div className="flex items-center space-x-3 p-2 bg-white rounded-lg border border-gray-200">
+                              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-blue-600 font-bold text-sm">👮</span>
                               </div>
-                              <p className="text-sm font-medium text-gray-900">Guard Santos</p>
-                              <p className="text-xs text-gray-600">Main Gate</p>
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
-                            </div>
-                            <div className="text-center">
-                              <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <span className="text-green-600 font-bold">👮</span>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-gray-900">Jasper Andrada</p>
+                                <p className="text-xs text-gray-600">Security Officer</p>
+                                <p className="text-xs text-gray-500">Triage 1</p>
                               </div>
-                              <p className="text-sm font-medium text-gray-900">Guard Cruz</p>
-                              <p className="text-xs text-gray-600">Entrance</p>
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
                             </div>
                           </div>
                         </div>
@@ -624,9 +623,442 @@ export default function AnalyticsPage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                           {/* Triage 2 Queue Released */}
                           <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <div className="flex items-start justify-start">
+                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                <span className="text-blue-600 text-2xl">👤</span>
+                              </div>
+                              <div>
+                                <p className="text-sm font-medium text-blue-600">Queue Released for Step 1b - Initial Triaging</p>
+                                <p className="text-2xl font-bold text-blue-900">78</p>
+                                <p className="text-xs text-blue-600">Triage 2 Only</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Triage 2 Staff */}
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <div className="flex items-start justify-start">
+                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <span className="text-green-600 font-bold text-lg">👮</span>
+                              </div>
+                              <div>
+                                <p className="text-sm font-medium text-green-600">Active Staff</p>
+                                <p className="text-2xl font-bold text-green-900">0</p>
+                                <p className="text-xs text-green-600">Security Officers</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Triage 2 Status */}
+                          <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                            <div className="flex items-start justify-start">
+                              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                                <span className="text-red-600 font-bold text-lg">❌</span>
+                              </div>
+                              <div>
+                                <p className="text-sm font-medium text-red-600">Status</p>
+                                <p className="text-2xl font-bold text-red-900">Close</p>
+                                <p className="text-xs text-red-600">Triage 2 Area</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Triage 2 Staff Details */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Triage 2 - Security Check Staff on Duty</h4>
+                          <div className="space-y-2">
+                            <div className="text-center py-4">
+                              <p className="text-sm text-gray-500">No staff currently logged in</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Section 3: Step 1b - Initial Triaging */}
+                  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Step 1b - Initial Triaging</h3>
+                    
+                    {/* Tab Navigation */}
+                    <div className="border-b border-gray-200 mb-6">
+                      <nav className="-mb-px flex space-x-8">
+                        <button
+                          onClick={() => setActiveTab('total')}
+                          className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                            activeTab === 'total'
+                              ? 'border-primary text-primary'
+                              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          }`}
+                        >
+                          Total
+                        </button>
+                        <button
+                          onClick={() => setActiveTab('triage1')}
+                          className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                            activeTab === 'triage1'
+                              ? 'border-primary text-primary'
+                              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          }`}
+                        >
+                          Triage 1
+                        </button>
+                        <button
+                          onClick={() => setActiveTab('triage2')}
+                          className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                            activeTab === 'triage2'
+                              ? 'border-primary text-primary'
+                              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          }`}
+                        >
+                          Triage 2
+                        </button>
+                      </nav>
+                    </div>
+
+                    {/* Tab Content */}
+                    {activeTab === 'total' && (
+                      <div className="space-y-4">
+                        {/* First Row - Step 1a Queue Status */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                          {/* Total Queue from Step 1a */}
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="text-sm font-medium text-blue-600">Queue Released</p>
+                                <p className="text-sm font-medium text-blue-600">Total Queue from Step 1a</p>
+                                <p className="text-2xl font-bold text-blue-900">156</p>
+                                <p className="text-xs text-blue-600">Security Check</p>
+                              </div>
+                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span className="text-blue-600 font-bold text-lg">Q</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Served */}
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-green-600">Served</p>
+                                <p className="text-2xl font-bold text-green-900">142</p>
+                                <p className="text-xs text-green-600">Processed</p>
+                              </div>
+                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <span className="text-green-600 font-bold text-lg">✓</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Pending */}
+                          <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-yellow-600">Pending</p>
+                                <p className="text-2xl font-bold text-yellow-900">8</p>
+                                <p className="text-xs text-yellow-600">Not Called</p>
+                              </div>
+                              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                                <span className="text-yellow-600 font-bold text-lg">⏳</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Out When Called */}
+                          <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-red-600">Out When Called</p>
+                                <p className="text-2xl font-bold text-red-900">6</p>
+                                <p className="text-xs text-red-600">No Show</p>
+                              </div>
+                              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                <span className="text-red-600 font-bold text-lg">❌</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Second Row - Step 2a Queue Release */}
+                        <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-6">
+                          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-purple-600">Queue Released for Step 2a - Final Triaging</p>
+                                <p className="text-2xl font-bold text-purple-900">142</p>
+                                <p className="text-xs text-purple-600">Categorized</p>
+                              </div>
+                              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <span className="text-purple-600 font-bold text-lg">Q2</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Queue Categorization Breakdown */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Total - Initial Triaging Queue Categorization</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Priority Queue */}
+                            <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                              <h5 className="font-medium text-blue-900 mb-2">Priority Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Stretcherborne:</span>
+                                  <span className="font-semibold">12</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Wheelchairborne:</span>
+                                  <span className="font-semibold">8</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Senior:</span>
+                                  <span className="font-semibold">15</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">PWD:</span>
+                                  <span className="font-semibold">6</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Pedia (&lt;1 year):</span>
+                                  <span className="font-semibold">4</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Buntis:</span>
+                                  <span className="font-semibold">9</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Regular Queue */}
+                            <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                              <h5 className="font-medium text-green-900 mb-2">Regular Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-green-700">Regular Ambulatory:</span>
+                                  <span className="font-semibold">98</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Fastlane Queue */}
+                            <div className="bg-orange-50 rounded-lg p-3 border border-orange-200">
+                              <h5 className="font-medium text-orange-900 mb-2">Fastlane Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">COVID-19:</span>
+                                  <span className="font-semibold">3</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">Dengue:</span>
+                                  <span className="font-semibold">2</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">Leptospirosis:</span>
+                                  <span className="font-semibold">1</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">MPOX:</span>
+                                  <span className="font-semibold">0</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Staff Details */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Initial Triaging Staffs on Duty</h4>
+                          <div className="space-y-2">
+                            <div className="flex items-center space-x-3 p-2 bg-white rounded-lg border border-gray-200">
+                              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-blue-600 font-bold text-sm">👩‍⚕️</span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-gray-900">Angel Khate Cagang</p>
+                                <p className="text-xs text-gray-600">PACD Officer</p>
+                                <p className="text-xs text-gray-500">Triage 1</p>
+                              </div>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                            </div>
+                            <div className="flex items-center space-x-3 p-2 bg-white rounded-lg border border-gray-200">
+                              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-green-600 font-bold text-sm">👩‍⚕️</span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-gray-900">Alex Habala</p>
+                                <p className="text-xs text-gray-600">PACD Officer</p>
+                                <p className="text-xs text-gray-500">Triage 2</p>
+                              </div>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'triage1' && (
+                      <div className="space-y-4">
+                        {/* Triage 1 - No Buntis/Pedia */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-blue-600">Queue from Step 1a</p>
+                                <p className="text-2xl font-bold text-blue-900">78</p>
+                                <p className="text-xs text-blue-600">Triage 1 Only</p>
+                              </div>
+                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span className="text-blue-600 font-bold text-lg">Q1</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-green-600">Served</p>
+                                <p className="text-2xl font-bold text-green-900">72</p>
+                                <p className="text-xs text-green-600">Processed</p>
+                              </div>
+                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <span className="text-green-600 font-bold text-lg">✓</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-yellow-600">Pending</p>
+                                <p className="text-2xl font-bold text-yellow-900">4</p>
+                                <p className="text-xs text-yellow-600">Not Called</p>
+                              </div>
+                              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                                <span className="text-yellow-600 font-bold text-lg">⏳</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-red-600">Out When Called</p>
+                                <p className="text-2xl font-bold text-red-900">2</p>
+                                <p className="text-xs text-red-600">No Show</p>
+                              </div>
+                              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                <span className="text-red-600 font-bold text-lg">❌</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Triage 1 Queue Release */}
+                        <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-sm font-medium text-purple-600">Queue Released for Step 2a - Final Triaging</p>
+                              <p className="text-2xl font-bold text-purple-900">72</p>
+                              <p className="text-xs text-purple-600">Triage 1 Categorized</p>
+                            </div>
+                            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                              <span className="text-purple-600 font-bold text-lg">Q2</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Triage 1 Categorization - No Buntis/Pedia */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Triage 1 - Initial Triaging Queue Categorization</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Priority Queue - Triage 1 */}
+                            <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                              <h5 className="font-medium text-blue-900 mb-2">Priority Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Stretcherborne:</span>
+                                  <span className="font-semibold">6</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Wheelchairborne:</span>
+                                  <span className="font-semibold">4</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Senior:</span>
+                                  <span className="font-semibold">8</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">PWD:</span>
+                                  <span className="font-semibold">3</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Regular Queue - Triage 1 */}
+                            <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                              <h5 className="font-medium text-green-900 mb-2">Regular Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-green-700">Regular Ambulatory:</span>
+                                  <span className="font-semibold">51</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Fastlane Queue - Triage 1 */}
+                            <div className="bg-orange-50 rounded-lg p-3 border border-orange-200">
+                              <h5 className="font-medium text-orange-900 mb-2">Fastlane Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">COVID-19:</span>
+                                  <span className="font-semibold">1</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">Dengue:</span>
+                                  <span className="font-semibold">1</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">Leptospirosis:</span>
+                                  <span className="font-semibold">0</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">MPOX:</span>
+                                  <span className="font-semibold">0</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Triage 1 Staff */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Triage 1 - Initial Triaging Staff on Duty</h4>
+                          <div className="space-y-2">
+                            <div className="flex items-center space-x-3 p-2 bg-white rounded-lg border border-gray-200">
+                              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-blue-600 font-bold text-sm">👩‍⚕️</span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-gray-900">Angel Khate Cagang</p>
+                                <p className="text-xs text-gray-600">PACD Officer</p>
+                                <p className="text-xs text-gray-500">Triage 1</p>
+                              </div>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'triage2' && (
+                      <div className="space-y-4">
+                        {/* Triage 2 - With Buntis/Pedia */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-blue-600">Queue from Step 1a</p>
                                 <p className="text-2xl font-bold text-blue-900">78</p>
                                 <p className="text-xs text-blue-600">Triage 2 Only</p>
                               </div>
@@ -636,45 +1068,146 @@ export default function AnalyticsPage() {
                             </div>
                           </div>
 
-                          {/* Triage 2 Staff */}
                           <div className="bg-green-50 rounded-lg p-4 border border-green-200">
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="text-sm font-medium text-green-600">Active Staff</p>
-                                <p className="text-2xl font-bold text-green-900">1</p>
-                                <p className="text-xs text-green-600">Security Officer</p>
+                                <p className="text-sm font-medium text-green-600">Served</p>
+                                <p className="text-2xl font-bold text-green-900">70</p>
+                                <p className="text-xs text-green-600">Processed</p>
                               </div>
                               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <span className="text-green-600 font-bold text-lg">👮</span>
+                                <span className="text-green-600 font-bold text-lg">✓</span>
                               </div>
                             </div>
                           </div>
 
-                          {/* Triage 2 Status */}
-                          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                          <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="text-sm font-medium text-purple-600">Status</p>
-                                <p className="text-2xl font-bold text-purple-900">Active</p>
-                                <p className="text-xs text-purple-600">Triage 2 Area</p>
+                                <p className="text-sm font-medium text-yellow-600">Pending</p>
+                                <p className="text-2xl font-bold text-yellow-900">4</p>
+                                <p className="text-xs text-yellow-600">Not Called</p>
                               </div>
-                              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <span className="text-purple-600 font-bold text-lg">✓</span>
+                              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                                <span className="text-yellow-600 font-bold text-lg">⏳</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-red-600">Out When Called</p>
+                                <p className="text-2xl font-bold text-red-900">4</p>
+                                <p className="text-xs text-red-600">No Show</p>
+                              </div>
+                              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                <span className="text-red-600 font-bold text-lg">❌</span>
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        {/* Triage 2 Staff Details */}
-                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                          <h4 className="font-semibold text-gray-900 mb-3">Triage 2 Staff on Duty</h4>
-                          <div className="text-center">
-                            <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-2 flex items-center justify-center">
-                              <span className="text-blue-600 font-bold">👮</span>
+                        {/* Triage 2 Queue Release */}
+                        <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-sm font-medium text-purple-600">Queue Released for Step 2a - Final Triaging</p>
+                              <p className="text-2xl font-bold text-purple-900">70</p>
+                              <p className="text-xs text-purple-600">Triage 2 Categorized</p>
                             </div>
-                            <p className="text-sm font-medium text-gray-900">Guard Reyes</p>
-                            <p className="text-xs text-gray-600">Main Entrance</p>
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                              <span className="text-purple-600 font-bold text-lg">Q2</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Triage 2 Categorization - With Buntis/Pedia */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Triage 2 - Initial Triaging Queue Categorization</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Priority Queue - Triage 2 */}
+                            <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                              <h5 className="font-medium text-blue-900 mb-2">Priority Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Stretcherborne:</span>
+                                  <span className="font-semibold">6</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Wheelchairborne:</span>
+                                  <span className="font-semibold">4</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Senior:</span>
+                                  <span className="font-semibold">7</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">PWD:</span>
+                                  <span className="font-semibold">3</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Pedia (&lt;1 year):</span>
+                                  <span className="font-semibold">4</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-blue-700">Buntis:</span>
+                                  <span className="font-semibold">9</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Regular Queue - Triage 2 */}
+                            <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                              <h5 className="font-medium text-green-900 mb-2">Regular Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-green-700">Regular Ambulatory:</span>
+                                  <span className="font-semibold">47</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Fastlane Queue - Triage 2 */}
+                            <div className="bg-orange-50 rounded-lg p-3 border border-orange-200">
+                              <h5 className="font-medium text-orange-900 mb-2">Fastlane Queue</h5>
+                              <div className="space-y-1 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">COVID-19:</span>
+                                  <span className="font-semibold">2</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">Dengue:</span>
+                                  <span className="text-orange-700">1</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">Leptospirosis:</span>
+                                  <span className="font-semibold">1</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-orange-700">MPOX:</span>
+                                  <span className="font-semibold">0</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Triage 2 Staff */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Triage 2 - Initial Triaging Staff on Duty</h4>
+                          <div className="space-y-2">
+                            <div className="flex items-center space-x-3 p-2 bg-white rounded-lg border border-gray-200">
+                              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-green-600 font-bold text-sm">👩‍⚕️</span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-gray-900">Alex Habala</p>
+                                <p className="text-xs text-gray-600">PACD Officer</p>
+                                <p className="text-xs text-gray-500">Triage 2</p>
+                              </div>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                            </div>
                           </div>
                         </div>
                       </div>
