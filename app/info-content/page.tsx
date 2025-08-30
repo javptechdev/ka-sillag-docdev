@@ -58,19 +58,7 @@ Through our commitment to excellence, innovation, and patient-centered care, we 
     window.history.back()
   }
 
-  const handleNavigationClick = (moduleName: string) => {
-    if (moduleName === 'home') {
-      window.location.href = '/home'
-    } else if (moduleName === 'services') {
-      window.location.href = '/services'
-    } else if (moduleName === 'qr') {
-      window.location.href = '/qr'
-    } else if (moduleName === 'analytics') {
-      alert('Navigating to Analytics module...')
-    } else if (moduleName === 'others') {
-      alert('Navigating to Others module...')
-    }
-  }
+
 
   // Get icon based on info type
   const getInfoIcon = (type: string) => {
@@ -150,7 +138,6 @@ Through our commitment to excellence, innovation, and patient-centered care, we 
       {/* Horizontal Navigation Bar */}
       <HorizontalNavigationBar 
         currentModule="home"
-        onNavigationClick={handleNavigationClick}
       />
     </div>
   )

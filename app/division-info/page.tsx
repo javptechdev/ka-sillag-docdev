@@ -88,19 +88,7 @@ export default function DivisionInfoPage() {
     }
   }
 
-  const handleNavigationClick = (moduleName: string) => {
-    if (moduleName === 'home') {
-      window.location.href = '/home'
-    } else if (moduleName === 'services') {
-      window.location.href = '/services'
-    } else if (moduleName === 'qr') {
-      window.location.href = '/qr'
-    } else if (moduleName === 'analytics') {
-      alert('Navigating to Analytics module...')
-    } else if (moduleName === 'others') {
-      alert('Navigating to Others module...')
-    }
-  }
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -178,7 +166,6 @@ export default function DivisionInfoPage() {
       {/* Horizontal Navigation Bar */}
       <HorizontalNavigationBar 
         currentModule="home"
-        onNavigationClick={handleNavigationClick}
       />
     </div>
   )
