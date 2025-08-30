@@ -41,7 +41,7 @@ export default function AnalyticsPage() {
     lastLogin: new Date('2024-01-15T08:30:00Z')
   })
 
-  // Mock analytics microservices data (adapted from Services module) - Alphabetically Sorted
+  // Mock analytics microservices data
   const [analyticsServices] = useState<AnalyticsMicroservice[]>([
     {
       id: '1',
@@ -55,169 +55,64 @@ export default function AnalyticsPage() {
     },
     {
       id: '2',
-      name: 'aISO',
-      description: 'AI Powered Document Management System (DMS) with Chatbot (RAG)',
+      name: 'Intelliflow',
+      description: 'Patient Flow and Queue Management System',
       division: 'Medical Division',
       department: 'DHIU',
       logo: '/icons/placeholder.svg',
-      availableDashboards: 8,
-      lastUpdated: new Date('2024-01-15T09:30:00Z')
+      availableDashboards: 2,
+      lastUpdated: new Date('2024-01-15T09:00:00Z')
     },
     {
       id: '3',
-      name: 'EmergencyAI',
-      description: 'Intelligent Emergency Response and Triage System',
-      division: 'Emergency Division',
-      department: 'Emergency Department',
+      name: 'PharmTrack',
+      description: 'Pharmacy Inventory and Prescription Management',
+      division: 'Allied Health Division',
+      department: 'Pharmacy',
       logo: '/icons/placeholder.svg',
-      availableDashboards: 7,
-      lastUpdated: new Date('2024-01-14T10:00:00Z')
+      availableDashboards: 4,
+      lastUpdated: new Date('2024-01-15T08:30:00Z')
     },
     {
       id: '4',
-      name: 'IntelliFerral',
-      description: 'Intelligent Clinic Referral System (RAG)',
-      division: 'Medical Division',
-      department: 'DHIU',
+      name: 'LabConnect',
+      description: 'Laboratory Information Management System',
+      division: 'Allied Health Division',
+      department: 'Pathology',
       logo: '/icons/placeholder.svg',
-      availableDashboards: 7,
-      lastUpdated: new Date('2024-01-14T16:20:00Z')
+      availableDashboards: 3,
+      lastUpdated: new Date('2024-01-15T08:15:00Z')
     },
     {
       id: '5',
-      name: 'IntelliFlow',
-      description: 'Intelligent Patient Flow and Queue Management System',
-      division: 'Medical Division',
-      department: 'DHIU',
+      name: 'HRPortal',
+      description: 'Human Resource Management System',
+      division: 'Hospital Operations',
+      department: 'HRM',
       logo: '/icons/placeholder.svg',
       availableDashboards: 5,
-      lastUpdated: new Date('2024-01-15T10:00:00Z')
+      lastUpdated: new Date('2024-01-15T07:45:00Z')
     },
     {
       id: '6',
-      name: 'IntelliMent',
-      description: 'Realtime Intelligent Client Satisfaction Monitoring System (Sentiment Analysis LLM)',
-      division: 'Medical Division',
-      department: 'DHIU',
-      logo: '/icons/placeholder.svg',
-      availableDashboards: 3,
-      lastUpdated: new Date('2024-01-14T14:00:00Z')
-    },
-    {
-      id: '7',
-      name: 'IntelliPath',
-      description: 'Intelligent Clinical Pathway Recommender System (RAG)',
-      division: 'Medical Division',
-      department: 'DHIU',
+      name: 'FinanceFlow',
+      description: 'Financial Management and Billing System',
+      division: 'Finance Service',
+      department: 'Accounting',
       logo: '/icons/placeholder.svg',
       availableDashboards: 4,
-      lastUpdated: new Date('2024-01-14T15:10:00Z')
-    },
-    {
-      id: '8',
-      name: 'LabAI',
-      description: 'Intelligent Laboratory Results Analysis and Reporting System',
-      division: 'Laboratory Division',
-      department: 'Clinical Laboratory',
-      logo: '/icons/placeholder.svg',
-      availableDashboards: 6,
-      lastUpdated: new Date('2024-01-14T12:15:00Z')
-    },
-    {
-      id: '9',
-      name: 'RadiologyAI',
-      description: 'AI-powered Radiology Image Analysis and Diagnosis Support',
-      division: 'Radiology Division',
-      department: 'Radiology Department',
-      logo: '/icons/placeholder.svg',
-      availableDashboards: 4,
-      lastUpdated: new Date('2024-01-14T11:00:00Z')
-    },
-    {
-      id: '10',
-      name: 'SmartPharmacy',
-      description: 'AI-powered Pharmacy Management and Drug Interaction System',
-      division: 'Pharmacy Division',
-      department: 'Pharmacy Department',
-      logo: '/icons/placeholder.svg',
-      availableDashboards: 5,
-      lastUpdated: new Date('2024-01-14T13:30:00Z')
+      lastUpdated: new Date('2024-01-15T07:30:00Z')
     }
   ])
 
-  // Mock dashboard data for each microservice
+  // Mock dashboards data
   const [dashboards] = useState<Record<string, Dashboard[]>>({
-    '1': [ // AiBTC
-      { id: '1-1', name: 'Animal Bite Statistics Dashboard', description: 'Comprehensive view of animal bite cases and trends', type: 'analytics' },
-      { id: '1-2', name: 'Appointment Scheduling Analytics', description: 'Real-time appointment booking and scheduling insights', type: 'capacity' },
-      { id: '1-3', name: 'Patient Wait Time Monitor', description: 'Track patient wait times and queue performance', type: 'monitoring' },
-      { id: '1-4', name: 'Treatment Outcome Tracker', description: 'Monitor treatment success rates and patient outcomes', type: 'analytics' },
-      { id: '1-5', name: 'Resource Utilization Dashboard', description: 'Track staff and equipment utilization efficiency', type: 'capacity' },
-      { id: '1-6', name: 'Geographic Distribution Map', description: 'Visualize animal bite cases by location', type: 'analytics' }
+    '1': [
+      { id: '1-1', name: 'Animal Bite Statistics Dashboard', description: 'Comprehensive view of animal bite cases and trends', type: 'analytics' }
     ],
-    '2': [ // aISO
-      { id: '2-1', name: 'Document Processing Analytics', description: 'Track document processing times and efficiency', type: 'analytics' },
-      { id: '2-2', name: 'Chatbot Performance Monitor', description: 'Monitor chatbot response accuracy and user satisfaction', type: 'monitoring' },
-      { id: '2-3', name: 'Storage Usage Dashboard', description: 'Track document storage and retrieval performance', type: 'capacity' },
-      { id: '2-4', name: 'User Activity Tracker', description: 'Monitor user engagement and document access patterns', type: 'analytics' },
-      { id: '2-5', name: 'Search Performance Analytics', description: 'Track search accuracy and response times', type: 'analytics' },
-      { id: '2-6', name: 'System Health Monitor', description: 'Real-time system performance and uptime tracking', type: 'monitoring' },
-      { id: '2-7', name: 'Compliance Dashboard', description: 'Monitor document compliance and audit trails', type: 'analytics' },
-      { id: '2-8', name: 'Integration Status Tracker', description: 'Track system integration and data flow status', type: 'monitoring' }
-    ],
-    '3': [ // EmergencyAI
-      { id: '3-1', name: 'Emergency Response Dashboard', description: 'Real-time emergency response and triage status', type: 'monitoring' },
-      { id: '3-2', name: 'Patient Triage Analytics', description: 'Track triage accuracy and response times', type: 'analytics' },
-      { id: '3-3', name: 'Resource Allocation Monitor', description: 'Monitor emergency department resource utilization', type: 'capacity' },
-      { id: '3-4', name: 'Response Time Tracker', description: 'Track emergency response times by priority level', type: 'monitoring' },
-      { id: '3-5', name: 'Patient Flow Analytics', description: 'Analyze patient movement through emergency services', type: 'analytics' },
-      { id: '3-6', name: 'Staff Performance Monitor', description: 'Track staff efficiency and response quality', type: 'monitoring' },
-      { id: '3-7', name: 'Capacity Planning Dashboard', description: 'Forecast emergency department capacity needs', type: 'capacity' }
-    ],
-    '4': [ // IntelliFerral
-      { id: '4-1', name: 'Referral Analytics Dashboard', description: 'Track referral patterns and success rates', type: 'analytics' },
-      { id: '4-2', name: 'Clinic Capacity Monitor', description: 'Monitor available clinic slots and scheduling', type: 'capacity' },
-      { id: '4-3', name: 'Patient Wait Time Tracker', description: 'Track patient wait times for referrals', type: 'monitoring' },
-      { id: '4-4', name: 'Specialist Availability Dashboard', description: 'Monitor specialist availability and scheduling', type: 'capacity' },
-      { id: '4-5', name: 'Referral Outcome Tracker', description: 'Track referral completion and patient outcomes', type: 'analytics' },
-      { id: '4-6', name: 'Geographic Distribution Map', description: 'Visualize referral patterns by location', type: 'analytics' },
-      { id: '4-7', name: 'Performance Metrics Monitor', description: 'Track referral system performance indicators', type: 'monitoring' }
-    ],
-    '5': [ // IntelliFlow - Focus on this one as requested
-      { id: '5-1', name: 'Patient Flow Capacity Dashboard', description: 'Monitor patient flow and capacity utilization', type: 'capacity' },
-      { id: '5-2', name: 'Queue Tracker', description: 'Real-time queue monitoring and management', type: 'monitoring' }
-    ],
-    '6': [ // IntelliMent
-      { id: '6-1', name: 'Sentiment Analysis Dashboard', description: 'Real-time client satisfaction sentiment tracking', type: 'analytics' },
-      { id: '6-2', name: 'Satisfaction Score Monitor', description: 'Track client satisfaction scores and trends', type: 'monitoring' },
-      { id: '6-3', name: 'Feedback Analytics Dashboard', description: 'Analyze feedback patterns and improvement areas', type: 'analytics' }
-    ],
-    '7': [ // IntelliPath
-      { id: '7-1', name: 'Clinical Pathway Analytics', description: 'Track pathway recommendations and outcomes', type: 'analytics' },
-      { id: '7-2', name: 'Recommendation Engine Monitor', description: 'Monitor recommendation accuracy and performance', type: 'monitoring' },
-      { id: '7-3', name: 'Outcome Tracker Dashboard', description: 'Track patient outcomes following pathway recommendations', type: 'analytics' },
-      { id: '7-4', name: 'Performance Metrics Monitor', description: 'Track system performance and user engagement', type: 'monitoring' }
-    ],
-    '8': [ // LabAI
-      { id: '8-1', name: 'Laboratory Results Dashboard', description: 'Track lab test results and turnaround times', type: 'analytics' },
-      { id: '8-2', name: 'Quality Control Monitor', description: 'Monitor lab quality metrics and accuracy', type: 'monitoring' },
-      { id: '8-3', name: 'Capacity Planning Dashboard', description: 'Forecast lab capacity and resource needs', type: 'capacity' },
-      { id: '8-4', name: 'Performance Analytics', description: 'Analyze lab performance and efficiency metrics', type: 'analytics' },
-      { id: '8-5', name: 'Equipment Utilization Tracker', description: 'Monitor lab equipment usage and maintenance', type: 'capacity' },
-      { id: '8-6', name: 'Staff Performance Monitor', description: 'Track staff efficiency and productivity', type: 'monitoring' }
-    ],
-    '9': [ // RadiologyAI
-      { id: '9-1', name: 'Image Analysis Dashboard', description: 'Track AI analysis accuracy and performance', type: 'analytics' },
-      { id: '9-2', name: 'Diagnosis Support Monitor', description: 'Monitor diagnosis support system performance', type: 'monitoring' },
-      { id: '9-3', name: 'Quality Assurance Dashboard', description: 'Track image quality and analysis reliability', type: 'analytics' },
-      { id: '9-4', name: 'Performance Metrics Tracker', description: 'Monitor system performance and response times', type: 'monitoring' }
-    ],
-    '10': [ // SmartPharmacy
-      { id: '10-1', name: 'Drug Interaction Dashboard', description: 'Monitor drug interaction alerts and safety', type: 'analytics' },
-      { id: '10-2', name: 'Inventory Management Monitor', description: 'Track medication inventory and stock levels', type: 'capacity' },
-      { id: '10-3', name: 'Prescription Analytics', description: 'Analyze prescription patterns and trends', type: 'analytics' },
-      { id: '10-4', name: 'Safety Alert Monitor', description: 'Track medication safety alerts and incidents', type: 'monitoring' },
-      { id: '10-5', name: 'Performance Metrics Dashboard', description: 'Monitor pharmacy system performance indicators', type: 'monitoring' }
+    '2': [
+      { id: '2-1', name: 'Patient Flow Capacity Dashboard', description: 'Real-time monitoring of patient flow and queue management across all process steps', type: 'patient-flow' },
+      { id: '2-2', name: 'Queue Tracker', description: 'Live tracking of queue numbers and waiting times at each step', type: 'queue' }
     ]
   })
 
@@ -233,6 +128,9 @@ export default function AnalyticsPage() {
   // State for dashboard detail modal
   const [selectedDashboard, setSelectedDashboard] = useState<Dashboard | null>(null)
   const [showDashboardDetailModal, setShowDashboardDetailModal] = useState(false)
+
+  // State for active tab in Patient Flow Capacity Dashboard
+  const [activeTab, setActiveTab] = useState('total');
 
   // Filter analytics services
   const filteredServices = analyticsServices.filter(service => {
@@ -284,7 +182,12 @@ export default function AnalyticsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <Header currentUser={currentUser} />
+      <Header 
+        onNotificationClick={() => {}} 
+        onProfileClick={() => {}} 
+        userName={currentUser.name}
+        userAvatar={currentUser.avatar}
+      />
 
       {/* Main Content */}
       <main className="px-4 py-6 pb-24 space-y-6">
@@ -369,25 +272,14 @@ export default function AnalyticsPage() {
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
                       <BarChart3 className="w-6 h-6 text-gray-400" />
                     </div>
-                    {/* Service Image (when available) */}
-                    {/* <img src={service.imageUrl} alt={service.name} className="w-full h-full object-cover rounded-lg" /> */}
                   </div>
 
                   {/* Service Details */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 truncate">
-                        {service.name}
-                      </h3>
-                      <span className="inline-block px-2 py-1 text-xs font-medium rounded-full border bg-blue-100 text-blue-700 border-blue-200">
-                        {service.availableDashboards} Dashboards
-                      </span>
-                    </div>
-                    
-                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                      {service.description}
-                    </p>
-                    
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      {service.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-2">{service.description}</p>
                     <div className="flex items-center space-x-2 text-xs text-gray-500">
                       <Building2 className="w-4 h-4" />
                       <span>{service.department} from {service.division}</span>
@@ -512,34 +404,293 @@ export default function AnalyticsPage() {
 
             {/* Modal Content */}
             <div className="flex-1 overflow-y-auto p-6">
-              <div className="w-full">
-                {/* Dashboard Sections - Blank for now */}
-                <div className="space-y-6">
-                  {/* Section 1 */}
+              {selectedDashboard.id === '2-1' ? (
+                // Patient Flow Capacity Dashboard Content
+                <div className="w-full space-y-6">
+                  {/* Section 1: Real-Time Dashboard Header */}
                   <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Section 1</h3>
-                    <div className="h-32 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
-                      <p className="text-gray-500">Content will be added here</p>
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-semibold text-gray-900">Patient Flow Capacity Dashboard</h3>
+                      <div className="text-sm text-gray-600">
+                        {new Date().toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })} • {new Date().toLocaleTimeString('en-US', { 
+                          hour: '2-digit', 
+                          minute: '2-digit', 
+                          second: '2-digit',
+                          hour12: true 
+                        })}
+                      </div>
                     </div>
+                    <p className="text-gray-600 text-sm">Real-time monitoring of patient flow and queue management across all process steps</p>
                   </div>
 
-                  {/* Section 2 */}
+                  {/* Section 2: Step 1 - Security Check */}
                   <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Section 2</h3>
-                    <div className="h-32 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
-                      <p className="text-gray-500">Content will be added here</p>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Step 1 - Security Check</h3>
+                    
+                    {/* Tab Navigation */}
+                    <div className="border-b border-gray-200 mb-6">
+                      <nav className="-mb-px flex space-x-8">
+                        <button
+                          onClick={() => setActiveTab('total')}
+                          className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                            activeTab === 'total'
+                              ? 'border-primary text-primary'
+                              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          }`}
+                        >
+                          Total
+                        </button>
+                        <button
+                          onClick={() => setActiveTab('triage1')}
+                          className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                            activeTab === 'triage1'
+                              ? 'border-primary text-primary'
+                              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          }`}
+                        >
+                          Triage 1
+                        </button>
+                        <button
+                          onClick={() => setActiveTab('triage2')}
+                          className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                            activeTab === 'triage2'
+                              ? 'border-primary text-primary'
+                              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          }`}
+                        >
+                          Triage 2
+                        </button>
+                      </nav>
                     </div>
-                  </div>
 
-                  {/* Section 3 */}
-                  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Section 3</h3>
-                    <div className="h-32 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
-                      <p className="text-gray-500">Content will be added here</p>
-                    </div>
+                    {/* Tab Content */}
+                    {activeTab === 'total' && (
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                          {/* Total Queue Released */}
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-blue-600">Total Queue Released</p>
+                                <p className="text-2xl font-bold text-blue-900">156</p>
+                                <p className="text-xs text-blue-600">Today</p>
+                              </div>
+                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span className="text-blue-600 font-bold text-lg">Q</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Active Staff */}
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-green-600">Active Staff</p>
+                                <p className="text-2xl font-bold text-green-900">3</p>
+                                <p className="text-xs text-green-600">Security Officers</p>
+                              </div>
+                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <span className="text-green-600 font-bold text-lg">👮</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Current Status */}
+                          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-purple-600">Current Status</p>
+                                <p className="text-2xl font-bold text-purple-900">Active</p>
+                                <p className="text-xs text-purple-600">All Areas</p>
+                              </div>
+                              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <span className="text-purple-600 font-bold text-lg">✓</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Staff Details */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Staff on Duty</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="text-center">
+                              <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <span className="text-blue-600 font-bold">👮</span>
+                              </div>
+                              <p className="text-sm font-medium text-gray-900">Guard Santos</p>
+                              <p className="text-xs text-gray-600">Triage 1 Area</p>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                            </div>
+                            <div className="text-center">
+                              <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <span className="text-green-600 font-bold">👮</span>
+                              </div>
+                              <p className="text-sm font-medium text-gray-900">Guard Cruz</p>
+                              <p className="text-xs text-gray-600">Triage 2 Area</p>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                            </div>
+                            <div className="text-center">
+                              <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <span className="text-purple-600 font-bold">👮</span>
+                              </div>
+                              <p className="text-sm font-medium text-gray-900">Guard Reyes</p>
+                              <p className="text-xs text-gray-600">Floating</p>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'triage1' && (
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                          {/* Triage 1 Queue Released */}
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-blue-600">Queue Released</p>
+                                <p className="text-2xl font-bold text-blue-900">78</p>
+                                <p className="text-xs text-blue-600">Triage 1 Only</p>
+                              </div>
+                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span className="text-blue-600 font-bold text-lg">Q1</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Triage 1 Staff */}
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-green-600">Active Staff</p>
+                                <p className="text-2xl font-bold text-green-900">2</p>
+                                <p className="text-xs text-green-600">Security Officers</p>
+                              </div>
+                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <span className="text-green-600 font-bold text-lg">👮</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Triage 1 Status */}
+                          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-purple-600">Status</p>
+                                <p className="text-2xl font-bold text-purple-900">Active</p>
+                                <p className="text-xs text-purple-600">Triage 1 Area</p>
+                              </div>
+                              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <span className="text-purple-600 font-bold text-lg">✓</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Triage 1 Staff Details */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Triage 1 Staff on Duty</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="text-center">
+                              <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <span className="text-blue-600 font-bold">👮</span>
+                              </div>
+                              <p className="text-sm font-medium text-gray-900">Guard Santos</p>
+                              <p className="text-xs text-gray-600">Main Gate</p>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                            </div>
+                            <div className="text-center">
+                              <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <span className="text-green-600 font-bold">👮</span>
+                              </div>
+                              <p className="text-sm font-medium text-gray-900">Guard Cruz</p>
+                              <p className="text-xs text-gray-600">Entrance</p>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'triage2' && (
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                          {/* Triage 2 Queue Released */}
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-blue-600">Queue Released</p>
+                                <p className="text-2xl font-bold text-blue-900">78</p>
+                                <p className="text-xs text-blue-600">Triage 2 Only</p>
+                              </div>
+                              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span className="text-blue-600 font-bold text-lg">Q2</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Triage 2 Staff */}
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-green-600">Active Staff</p>
+                                <p className="text-2xl font-bold text-green-900">1</p>
+                                <p className="text-xs text-green-600">Security Officer</p>
+                              </div>
+                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <span className="text-green-600 font-bold text-lg">👮</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Triage 2 Status */}
+                          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-sm font-medium text-purple-600">Status</p>
+                                <p className="text-2xl font-bold text-purple-900">Active</p>
+                                <p className="text-xs text-purple-600">Triage 2 Area</p>
+                              </div>
+                              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <span className="text-purple-600 font-bold text-lg">✓</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Triage 2 Staff Details */}
+                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <h4 className="font-semibold text-gray-900 mb-3">Triage 2 Staff on Duty</h4>
+                          <div className="text-center">
+                            <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-2 flex items-center justify-center">
+                              <span className="text-blue-600 font-bold">👮</span>
+                            </div>
+                            <p className="text-sm font-medium text-gray-900">Guard Reyes</p>
+                            <p className="text-xs text-gray-600">Main Entrance</p>
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">Active</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
+              ) : (
+                // Default dashboard content for other dashboards
+                <div className="text-center py-12">
+                  <BarChart3 className="mx-auto h-12 w-12 text-gray-400" />
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">Dashboard Details</h3>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Dashboard details will be displayed here.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
